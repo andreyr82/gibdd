@@ -17,11 +17,6 @@ db.once('open', function callback () {
 
 var Schema = mongoose.Schema;
 
-// Schemas
-var Image = new Schema({
-    url: { type: String, required: true }
-});
-
 var Theme = new Schema({
     text: { type: String, required: true }
 });
@@ -29,12 +24,12 @@ var Theme = new Schema({
 var Question = new Schema({
     number: { type: String, required: true },
     ticket: { type: Number, required: true },
-    theme: [Theme],
+    theme: { type: Number, required: true },
     text: { type: String, required: true },
     comment: { type: String, required: true },
     answer: { type: Number, required: true },
-    variants: { type: Array },
-    image: [Image]
+    variants: { type: [String] },
+    image: { type: String }
 });
 
 var QuestionModel = mongoose.model('Question', Question);

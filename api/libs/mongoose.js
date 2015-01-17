@@ -21,8 +21,13 @@ var Theme = new Schema({
     text: { type: String, required: true }
 });
 
+var Ticket = new Schema({
+    number: { type: Number, required: true },
+    name: { type: String, requires: true }
+});
+
 var Question = new Schema({
-    number: { type: String, required: true },
+    number: { type: Number, required: true },
     ticket: { type: Number, required: true },
     theme: { type: Number, required: true },
     text: { type: String, required: true },
@@ -33,5 +38,7 @@ var Question = new Schema({
 });
 
 var QuestionModel = mongoose.model('Question', Question);
+var TicketModel = mongoose.model('Ticket', Ticket);
 
 module.exports.QuestionModel = QuestionModel;
+module.exports.TicketModel = TicketModel;

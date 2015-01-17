@@ -10,6 +10,7 @@ var multer          = require('multer');
 var config          = require('./libs/config');
 var log             = require('./libs/log')(module);
 var QuestionModel    = require('./libs/mongoose').QuestionModel;
+var TicketModel    = require('./libs/mongoose').TicketModel;
 var app = express();
 
 app.use(logger('dev')); // выводим все запросы со статусами в консоль
@@ -21,6 +22,18 @@ app.use(express.static(path.join(__dirname, "../app"))); // запуск ста�
 
 app.get('/api', function (req, res) {
     res.send('API is running');
+});
+
+app.get('/api/tickets', function(req, res) {
+    return TicketModel.find(function (err, tickets) {
+        if (!err) {
+            return res.send(tickets);
+        } else {
+            res.statusCode = 500;
+            log.error('Internal error(%d): %s',res.statusCode,err.message);
+            return res.send({ error: 'Server error' });
+        }
+    });
 });
 
 app.get('/api/questions', function(req, res) {

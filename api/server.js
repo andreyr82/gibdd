@@ -48,8 +48,8 @@ app.get('/api/questions', function(req, res) {
     });
 });
 
-app.get('/api/questions/:id', function(req, res) {
-    return QuestionModel.findById(req.params.id, function (err, question) {
+app.get('/api/questions/:ticket', function(req, res) {
+    return QuestionModel.find({'ticket':req.params.ticket}, function (err, question) {
         if(!question) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });

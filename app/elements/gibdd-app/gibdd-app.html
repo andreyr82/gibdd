@@ -1,27 +1,44 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/polymer-jsonp/polymer-jsonp.html">
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../../bower_components/core-drawer-panel/core-drawer-panel.html">
+<link rel="import" href="../../bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../../bower_components/core-animated-pages/transitions/slide-up.html">
+<link rel="import" href="../../bower_components/core-animated-pages/transitions/scale-up.html">
+<link rel="import" href="../../bower_components/core-animated-pages/transitions/tile-cascade.html">
+<link rel="import" href="../../bower_components/core-media-query/core-media-query.html">
+<link rel="import" href="../gibdd-tickets/gibdd-tickets.html">
+<link rel="import" href="../gibdd-ticket/gibdd-ticket.html">
+<link rel="import" href="../gibdd-rules/gibdd-rules.html">
+<link rel="import" href="../gibdd-signs/gibdd-signs.html">
+<link rel="import" href="../gibdd-penalty/gibdd-penalty.html">
 
 <polymer-element name="gibdd-app" attributes="">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <template repeat="{{ticket in tickets}}">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <core-animated-pages selected="{{selected}}" transitions="cross-fade cross-fade-delayed scale-up slide-up slide-up-offscreen slide-down tile-cascade hero-transition" flex auto on-core-animated-pages-transition-end="{{transitionEndAction}}">
+            <gibdd-tickets id="tickets" name="tickets" allScores="{{allScores}}" wide="{{wide}}" on-core-activate="{{categorySelect}}"></gibdd-tickets>
 
-      <p>{{ticket.name}}</p>
+            <topeka-category id="category" name="category" user="{{user}}" category="{{category}}" allScores="{{allScores}}" wide="{{wide}}"></topeka-category>
 
+            <topeka-leaderboard name="leaderboard" user="{{user}}" wide="{{wide}}" disabled="{{disableLeaderboard}}"></topeka-leaderboard>
+
+            <topeka-profile id="profile" name="profile" user="{{user}}" wide="{{wide}}"></topeka-profile>
+
+        </core-animated-pages>
+
+        <core-media-query query="min-width: {{responsiveWidth}}" queryMatches="{{wide}}"></core-media-query>
     </template>
-    <polymer-jsonp auto url="/api/tickets?callback=" response="{{tickets}}"></polymer-jsonp>
-  </template>
-  <script>
-    (function () {
+    <script>
+        (function () {
 
-      Polymer({
-        // define element prototype here
-      });
+            Polymer({
+                // define element prototype here
+            });
 
-    })();
-  </script>
+        })();
+    </script>
 </polymer-element>

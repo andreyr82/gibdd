@@ -11,6 +11,7 @@
 <link rel="import" href="../gibdd-rules/gibdd-rules.html">
 <link rel="import" href="../gibdd-signs/gibdd-signs.html">
 <link rel="import" href="../gibdd-penalty/gibdd-penalty.html">
+<link rel="import" href="../gibdd-menu/gibdd-menu.html">
 
 <polymer-element name="gibdd-app" attributes="">
     <template>
@@ -20,14 +21,12 @@
             }
         </style>
         <core-animated-pages selected="{{selected}}" transitions="cross-fade cross-fade-delayed scale-up slide-up slide-up-offscreen slide-down tile-cascade hero-transition" flex auto on-core-animated-pages-transition-end="{{transitionEndAction}}">
-            <gibdd-tickets id="tickets" name="tickets" allScores="{{allScores}}" wide="{{wide}}" on-core-activate="{{categorySelect}}"></gibdd-tickets>
-
-            <topeka-category id="category" name="category" user="{{user}}" category="{{category}}" allScores="{{allScores}}" wide="{{wide}}"></topeka-category>
-
-            <topeka-leaderboard name="leaderboard" user="{{user}}" wide="{{wide}}" disabled="{{disableLeaderboard}}"></topeka-leaderboard>
-
-            <topeka-profile id="profile" name="profile" user="{{user}}" wide="{{wide}}"></topeka-profile>
-
+            <gibdd-menu id="menu" name="menu" wide="{{wide}}"></gibdd-menu>
+            <gibdd-tickets id="tickets" name="tickets" questions="{{questions}}" allScores="{{allScores}}" wide="{{wide}}"></gibdd-tickets>
+            <gibdd-ticket id="ticket" name="ticket" questions="{{questions}}" allScores="{{allScores}}" wide="{{wide}}"></gibdd-ticket>
+            <gibdd-rules id="rules" name="rules" wide="{{wide}}"></gibdd-rules>
+            <gibdd-signs id="signs" name="signs" wide="{{wide}}"></gibdd-signs>
+            <gibdd-penalty id="penalty" name="penalty" wide="{{wide}}"></gibdd-penalty>
         </core-animated-pages>
 
         <core-media-query query="min-width: {{responsiveWidth}}" queryMatches="{{wide}}"></core-media-query>

@@ -1,0 +1,173 @@
+.menu {
+    position: relative;
+    /* TODO(sjmiles): why is this necessary? */
+    overflow-x: hidden;
+    background-color: #424242;
+}
+
+.menu-toolbar {
+    height: 100px;
+    z-index: 1;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.menu-toolbar::shadow #topBar {
+    height: 96px;
+}
+
+.gibdd-avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    height: 64px;
+    width: 64px;
+}
+
+
+.menu-bg-wrapper core-icon {
+    height: 100%;
+    width: 100%;
+}
+
+.menu-list {
+    display: block;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 2px 0;
+    margin: 0 -2px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.user-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu-item {
+    position: relative;
+    float: left;
+    vertical-align: top;
+    width: 50%;
+    height: 224px;
+    /*
+     * TODO(dfreedm): force items to be layers until
+     * overflow scrolling renders correctly
+     */
+    will-change: transform;
+}
+
+.menu-item[needZ] {
+    z-index: 10000; /* need this for will-change */
+}
+
+.menu-item.completed {
+    pointer-events: none;
+}
+
+.tile {
+    position: relative;
+    margin: 2px;
+}
+
+.menu-tile-bg {
+    position: absolute !important;
+}
+
+.menu-bg-wrapper {
+    width: 80%;
+    height: 80%;
+}
+
+.completed .menu-bg-wrapper {
+    width: 96px !important;
+    height: 96px !important;
+}
+
+.cat-name {
+    height: 48px;
+    padding: 0 16px;
+    font-size: 12px;
+}
+
+.tickets, .profile {
+    color: #fff;
+}
+
+.tickets .theme-bg-a, .profile .theme-bg-a {
+    background-color: #f5f5f5;
+}
+
+.tickets .cat-name, .profile .cat-name {
+    background-color: #999;
+}
+
+.polymer-logo > .tile {
+    background-color: #eee;
+}
+
+.polymer-logo core-icon {
+    width: 100%;
+    height: 100%;
+}
+
+/* wide layout */
+.wide.menu-list {
+    padding: 4px 0;
+    margin: 0 -4px;
+    /* need to avoid transitioning elemnents causing scrollbars to appear */
+    overflow-y: hidden;
+}
+
+.wide .menu-item > .tile {
+    margin: 4px;
+}
+
+.wide .menu-item {
+    width: calc(100% / 6);
+    height: calc(100% / 3);
+}
+
+.wide .menu-item:nth-of-type(1) {
+    width: calc(100% / 3);
+    height: calc(100% / 3 * 2);
+}
+
+.wide .menu-item:nth-of-type(1) .menu-bg-wrapper {
+    width: 64%;
+    height: 64%;
+}
+
+.wide .menu-item:nth-of-type(4) {
+    width: calc(100% / 3);
+}
+
+.wide .menu-item:nth-of-type(4) .menu-bg-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.wide .menu-item:nth-of-type(5) {
+    width: calc(100% / 3);
+    height: calc(100% / 3 * 2);
+}
+
+.wide .menu-item:nth-of-type(9) {
+    position: absolute;
+    top: calc(100% / 3 * 2);
+    left: 0;
+    width: calc(100% / 6);
+    height: calc(100% / 3 - 4px);
+}
+
+.wide .menu-item:nth-of-type(10) {
+    position: absolute;
+    top: calc(100% / 3 * 2);
+    left: calc(100% / 6);;
+    width: calc(100% / 6);
+    height: calc(100% / 3 - 4px);
+}

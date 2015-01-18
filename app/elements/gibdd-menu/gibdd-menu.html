@@ -1,18 +1,63 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../../bower_components/core-selector/core-selector.html">
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
 
-<polymer-element name="gibdd-menu" attributes="">
+<polymer-element name="gibdd-menu" attributes="wide item" vertical layout>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+    <link rel="stylesheet" href="gibdd-menu.css">
+
+    <div class="menu" flex auto>
+      <core-toolbar class="menu-toolbar" slide-down?="{{parentElement.selected !== 'menu' && parentElement.lastSelected !== 'menu'}}">
+        <div>{{score}}</div>
+      </core-toolbar>
+      <core-selector valueattr="data-name" class="menu-list content {{ {wide: wide} | tokenList }}" selected="{{selected}}" tile-cascade?="{{parentElement.selected !== 'menu' && parentElement.lastSelected !== 'menu'}}">
+        <div class="menu-item tickets" data-name="tickets" vertical layout>
+          <div class="tile theme-bg-a" dummy fit></div>
+          <div class="tile" flex vertical layout>
+            <div flex relative>
+              <!-- sizing wrapper -->
+              <div fit layout vertical center center-justified>
+                <div class="menu-bg-wrapper" relative>
+                  <!--<core-icon icon="category-icons:leaderboard" class="category-tile-bg" fit></core-icon>-->
+                </div>
+              </div>
+            </div>
+            <div class="cat-name" horizontal center layout>
+              <div flex>Билеты</div>
+              <core-icon class="menu-icon" icon="arrow-forward"></core-icon>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item rules" data-name="rules" vertical layout>
+          <div class="tile theme-bg-a" dummy fit></div>
+          <div class="tile" flex vertical layout>
+            <div flex relative>
+              <!-- sizing wrapper -->
+              <div fit layout vertical center center-justified>
+                <div class="menu-bg-wrapper" relative>
+                  <!--<core-icon icon="category-icons:leaderboard" class="category-tile-bg" fit></core-icon>-->
+                </div>
+              </div>
+            </div>
+            <div class="cat-name" horizontal center layout>
+              <div flex>Правила</div>
+              <core-icon class="menu-icon" icon="arrow-forward"></core-icon>
+            </div>
+          </div>
+        </div>
+        </core-selector>
+    </div>
   </template>
   <script>
     (function () {
 
       Polymer({
         // define element prototype here
+        selectedChanged: function() {
+          this.item = this.selected;
+        }
       });
 
     })();

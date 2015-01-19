@@ -1,20 +1,201 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
 <polymer-element name="gibdd-tickets" attributes="">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-  </template>
-  <script>
-    (function () {
+    <template>
+        <style>
+            .card {
+                background-color: white;
+                box-sizing: border-box;
+                width: 100%;
+            }
+            .wide.card:not(.tvmode) {
+                width: 512px;
+                margin-top: 64px;
+            }
+            .wide.card.multi-column {
+                width: 100%;
+                height: 100%;
+            }
+            .main-button {
+                position: absolute;
+                top: 12px;
+                left: 8px;
+                color: white;
+            }
+            .main-button.wide {
+                position: fixed;
+                top: 12px;
+                left: 16px;
+                color: #424242;
+            }
+            .title {
+                padding-left: 56px;
+                font-size: 16px;
+            }
 
-      Polymer({
-        // define element prototype here
-      });
+            .wide .title {
+                padding: 0;
+            }
 
-    })();
-  </script>
+            .tvmode .title {
+                font-size: 24px;
+            }
+            .scroll {
+                overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
+            }
+            .multi-column .list {
+                display: -webkit-flex;
+                display: flex;
+                -webkit-flex-flow: column wrap;
+                flex-flow: column wrap;
+                -webkit-align-content: stretch;
+                align-content: stretch;
+            }
+            .item {
+                background-color: white;
+                height: 56px;
+                padding: 8px 24px;
+                box-sizing: border-box;
+                position: relative;
+                font-size: 18px;
+                transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.28s;
+            }
+            .multi-column .item {
+                padding: 16px 32px;
+            }
+            [animate] .item.rising {
+                box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                z-index: 10001 !important;
+                background-color: white;
+            }
+            [animate] .item.rising .rankNo {
+                display: none;
+            }
+            .multi-column [animate] .item.rising {
+            }
+            .delta {
+                display: none;
+                padding-right: 32px;
+                color: #00bbd3;
+                font-weight: bold;
+            }
+            [animate] .item.rising .delta {
+                display: inline-block;
+            }
+            .arrow {
+                display: none;
+                margin-left: -4px;
+                -webkit-transform: rotate(90deg);
+            }
+            [animate] .item.rising .arrow {
+                display: inline-block;
+            }
+            .rank {
+                width: 56px;
+            }
+            .avatar {
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+            .name {
+                padding-left: 48px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding-right: 16px;
+            }
+            .main {
+                position: relative;
+            }
+            .main::-webkit-scrollbar {
+                display: none;
+            }
+
+            .bg {
+                background-color: #eee;
+            }
+            :host([animate]:not(.core-selected)) .bg {
+                z-index: -1;
+            }
+        </style>
+
+        <div class="bg" fit dummy cross-fade></div>
+
+        <div class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
+            <div flex vertical layout slide-up-offscreen?="{{parentElement.selected === 'leaderboard'}}"
+                 cross-fade="{{!wide && parentElement.selected !== 'leaderboard'}}"
+                 class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
+                <core-toolbar>
+                    <paper-tabs id="tabs" selected="tickets" self-end>
+                        <paper-tab name="tickets">Билеты</paper-tab>
+                        <paper-tab name="themes">Темы</paper-tab>
+                    </paper-tabs>
+                </core-toolbar>
+
+                <div class="{{ {scroll: !wide} | tokenList }}" layout vertical flex>
+                    <core-animated-pages id="pages" selected="{{selected}}"
+                                         on-core-animated-pages-transition-end="{{done}}" transitions="hero-transition"
+                                         layout flex no-transition?="{{disabled}}">
+                        <section class="list" layout>
+                            <template repeat="{{u,i in items1}}">
+                                <div hero hero-id="{{u.uid}}" class="item {{u.rising ? 'rising':''}}"
+                                     style="{{ columns>1 ? 'width:' + (1/columns*100) + '%' : '' }}" layout horizontal
+                                     center>
+                                    <div class="rank">
+                                        <div class="rankNo">{{i+1}}</div>
+                                        <core-icon class="arrow" icon="arrow-back"></core-icon>
+                                    </div>
+                                    <core-icon class="avatar" icon="avatars:avatar-{{u.avatar}}"></core-icon>
+                                    <div layout flex class="name">{{u.name}}</div>
+                                    <div class="delta" hidden?="{{!u.delta || !u.rising}}">{{u.delta}}</div>
+                                    <div>{{u.score}}</div>
+                                </div>
+                            </template>
+                        </section>
+
+                        <section class="list" layout>
+                            <template repeat="{{u,i in items2}}">
+                                <div hero hero-id="{{u.uid}}" class="item {{u.rising ? 'rising':''}}"
+                                     style="{{ columns>1 ? 'width:' + (1/columns*100) + '%' : '' }}" layout horizontal
+                                     center>
+                                    <div class="rank">
+                                        <div class="rankNo">{{i+1}}</div>
+                                        <core-icon class="arrow" icon="arrow-back"></core-icon>
+                                    </div>
+                                    <core-icon class="avatar" icon="avatars:avatar-{{u.avatar}}"></core-icon>
+                                    <div layout flex class="name">{{u.name}}</div>
+                                    <div class="delta" hidden?="{{!u.delta || !u.rising}}">{{u.delta}}</div>
+                                    <div>{{u.score}}</div>
+                                </div>
+                            </template>
+                        </section>
+
+                    </core-animated-pages>
+                </div>
+            </div>
+            <paper-icon-button hidden?="{{tvmode}}" class="main-button {{ {wide: wide} | tokenList }}" icon="arrow-back"
+                               on-tap="{{mainAction}}" cross-fade-delayed?="{{!disabled}}"
+                               hero?="{{!disabled}}"></paper-icon-button>
+        </div>
+    </template>
+    <script>
+        (function () {
+
+            Polymer({
+                // define element prototype here
+            });
+
+        })();
+    </script>
 </polymer-element>

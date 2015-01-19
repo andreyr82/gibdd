@@ -18,7 +18,8 @@ db.once('open', function callback () {
 var Schema = mongoose.Schema;
 
 var Theme = new Schema({
-    text: { type: String, required: true }
+    number: { type: Number, required: true },
+    names: { type: [String], required: true }
 });
 
 var Ticket = new Schema({
@@ -29,7 +30,7 @@ var Ticket = new Schema({
 var Question = new Schema({
     number: { type: Number, required: true },
     ticket: { type: Number, required: true },
-    theme: { type: Number, required: true },
+    themes: { type: [Number] },
     text: { type: String, required: true },
     comment: { type: String, required: true },
     answer: { type: Number, required: true },
@@ -39,6 +40,8 @@ var Question = new Schema({
 
 var QuestionModel = mongoose.model('Question', Question);
 var TicketModel = mongoose.model('Ticket', Ticket);
+var ThemeModel = mongoose.model('Theme', Theme);
 
 module.exports.QuestionModel = QuestionModel;
 module.exports.TicketModel = TicketModel;
+module.exports.ThemeModel = ThemeModel;

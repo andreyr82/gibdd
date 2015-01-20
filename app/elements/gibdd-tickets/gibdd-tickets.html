@@ -124,6 +124,9 @@
             .tabs {
                 width: 100%;
             }
+            .list {
+                background-color: #ffffff;
+            }
 
             .bg {
                 background-color: #eee;
@@ -140,9 +143,9 @@
                  cross-fade="{{!wide && parentElement.selected !== 'tickets'}}"
                  class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
                 <core-toolbar>
-                    <paper-tabs class="tabs" selected="tickets" self-end>
-                        <paper-tab name="tickets"><div class="title">Билеты</div></paper-tab>
-                        <paper-tab name="themes"><div class="title">Темы</div></paper-tab>
+                    <paper-tabs class="tabs" selected="{{selected}}" self-end>
+                        <paper-tab name="ticket-list"><div class="title">Билеты</div></paper-tab>
+                        <paper-tab name="theme-list"><div class="title">Темы</div></paper-tab>
                     </paper-tabs>
                 </core-toolbar>
 
@@ -150,37 +153,15 @@
                     <core-animated-pages id="pages" selected="{{selected}}"
                                          on-core-animated-pages-transition-end="{{done}}" transitions="hero-transition"
                                          layout flex no-transition?="{{disabled}}">
-                        <section class="list" layout>
-                            <template repeat="{{u,i in items1}}">
-                                <div hero hero-id="{{u.uid}}" class="item {{u.rising ? 'rising':''}}"
-                                     style="{{ columns>1 ? 'width:' + (1/columns*100) + '%' : '' }}" layout horizontal
-                                     center>
-                                    <div class="rank">
-                                        <div class="rankNo">{{i+1}}</div>
-                                        <core-icon class="arrow" icon="arrow-back"></core-icon>
-                                    </div>
-                                    <core-icon class="avatar" icon="avatars:avatar-{{u.avatar}}"></core-icon>
-                                    <div layout flex class="name">{{u.name}}</div>
-                                    <div class="delta" hidden?="{{!u.delta || !u.rising}}">{{u.delta}}</div>
-                                    <div>{{u.score}}</div>
-                                </div>
+                        <section class="list" layout relative>
+                            <template repeat="{{ticket in tickets}}">
+                                <paper-item>{{ticket.name}}</paper-item>
                             </template>
                         </section>
 
-                        <section class="list" layout>
-                            <template repeat="{{u,i in items2}}">
-                                <div hero hero-id="{{u.uid}}" class="item {{u.rising ? 'rising':''}}"
-                                     style="{{ columns>1 ? 'width:' + (1/columns*100) + '%' : '' }}" layout horizontal
-                                     center>
-                                    <div class="rank">
-                                        <div class="rankNo">{{i+1}}</div>
-                                        <core-icon class="arrow" icon="arrow-back"></core-icon>
-                                    </div>
-                                    <core-icon class="avatar" icon="avatars:avatar-{{u.avatar}}"></core-icon>
-                                    <div layout flex class="name">{{u.name}}</div>
-                                    <div class="delta" hidden?="{{!u.delta || !u.rising}}">{{u.delta}}</div>
-                                    <div>{{u.score}}</div>
-                                </div>
+                        <section class="list" layout relative>
+                            <template repeat="{{theme in themes}}">
+                                <paper-item>{{theme.names}}</paper-item>
                             </template>
                         </section>
 
@@ -191,6 +172,16 @@
                                on-tap="{{mainAction}}" cross-fade-delayed?="{{!disabled}}"
                                hero?="{{!disabled}}"></paper-icon-button>
         </div>
+        <core-ajax
+                auto
+                url="/api/tickets"
+                handleAs="json"
+                response="{{tickets}}"></core-ajax>
+        <core-ajax
+                auto
+                url="/api/themes"
+                handleAs="json"
+                response="{{themes}}"></core-ajax>
     </template>
     <script>
         (function () {

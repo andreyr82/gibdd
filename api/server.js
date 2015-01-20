@@ -26,7 +26,7 @@ app.get('/api', function (req, res) {
 });
 
 app.get('/api/themes', function(req, res) {
-    return ThemeModel.find(function (err, themes) {
+    return ThemeModel.find({}, null, {sort:{'number':1}},function (err, themes) {
         if (!err) {
             return res.send(themes);
         } else {
@@ -38,7 +38,7 @@ app.get('/api/themes', function(req, res) {
 });
 
 app.get('/api/tickets', function(req, res) {
-    return TicketModel.find(function (err, tickets) {
+    return TicketModel.find({}, null, {sort:{'number':1}},function (err, tickets) {
         if (!err) {
             return res.send(tickets);
         } else {

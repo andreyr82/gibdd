@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="gibdd-menu.css">
 
     <div class="menu" flex auto>
-      <core-toolbar class="menu-toolbar" slide-down?="{{parentElement.selected !== 'menu' && parentElement.lastSelected !== 'menu'}}">
+      <core-toolbar class="menu-toolbar" slide-down?="{{parentElement.selected !== 'ticket' && parentElement.lastSelected !== 'ticket'}}">
         <div>{{score}}</div>
       </core-toolbar>
-      <core-selector valueattr="data-name" class="menu-list content {{ {wide: wide} | tokenList }}" selected="{{selected}}" tile-cascade?="{{parentElement.selected !== 'menu' && parentElement.lastSelected !== 'menu'}}">
+      <core-selector valueattr="data-name" class="menu-list content {{ {wide: wide} | tokenList }}" selected="{{selected}}" tile-cascade?="{{parentElement.selected !== 'ticket' && parentElement.lastSelected !== 'ticket'}}">
         <div class="menu-item tickets" data-name="tickets" vertical layout>
           <div class="tile theme-bg-a" dummy fit></div>
           <div class="tile" flex vertical layout>
@@ -55,6 +55,8 @@
 
       Polymer({
         // define element prototype here
+        wide: false,
+
         selectedChanged: function() {
           this.item = this.selected;
         }

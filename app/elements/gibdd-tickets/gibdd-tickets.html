@@ -7,7 +7,7 @@
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
-<polymer-element name="gibdd-tickets" attributes="wide" vertical layout>
+<polymer-element name="gibdd-tickets" vertical layout>
     <template>
         <style>
             .card {
@@ -121,6 +121,9 @@
             .main::-webkit-scrollbar {
                 display: none;
             }
+            .tabs {
+                width: 100%;
+            }
 
             .bg {
                 background-color: #eee;
@@ -133,13 +136,13 @@
         <div class="bg" fit dummy cross-fade></div>
 
         <div class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
-            <div flex vertical layout slide-up-offscreen?="{{parentElement.selected === 'leaderboard'}}"
-                 cross-fade="{{!wide && parentElement.selected !== 'leaderboard'}}"
+            <div flex vertical layout slide-up-offscreen?="{{parentElement.selected === 'tickets'}}"
+                 cross-fade="{{!wide && parentElement.selected !== 'tickets'}}"
                  class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
                 <core-toolbar>
-                    <paper-tabs id="tabs" selected="tickets" self-end>
-                        <paper-tab name="tickets">Билеты</paper-tab>
-                        <paper-tab name="themes">Темы</paper-tab>
+                    <paper-tabs class="tabs" selected="tickets" self-end>
+                        <paper-tab name="tickets"><div class="title">Билеты</div></paper-tab>
+                        <paper-tab name="themes"><div class="title">Темы</div></paper-tab>
                     </paper-tabs>
                 </core-toolbar>
 
@@ -194,6 +197,21 @@
 
             Polymer({
                 // define element prototype here
+                publish: {
+                    disabled: false,
+                    columns: 1,
+                    tvmode: false,
+                    duration: -1,
+                    wide: false
+                },
+
+                mainAction: function() {
+//                    if (this.$.pages.transitioning.length > 0) {
+//                        this.$.pages.complete();
+//                    }
+                    this.disabled = true;
+                    this.fire('main');
+                }
             });
 
         })();

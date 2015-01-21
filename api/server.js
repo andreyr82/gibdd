@@ -50,7 +50,12 @@ app.get('/api/tickets', function(req, res) {
 });
 
 app.get('/api/questions', function(req, res) {
-    return QuestionModel.find(function (err, questions) {
+    var query = {};
+    if(req.query.ticket)
+        query.ticket = req.query.ticket;
+    if(req.query.theme)
+        query.themes = req.query.theme;
+    return QuestionModel.find(query, null, {sort:{'ticket':1,'number':1}}, function (err, questions) {
         if (!err) {
             return res.send(questions);
         } else {

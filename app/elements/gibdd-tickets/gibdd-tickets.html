@@ -144,24 +144,23 @@
                  class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
                 <core-toolbar>
                     <paper-tabs class="tabs" selected="{{selected}}" self-end>
-                        <paper-tab name="ticket-list"><div class="title">Билеты</div></paper-tab>
-                        <paper-tab name="theme-list"><div class="title">Темы</div></paper-tab>
+                        <paper-tab><div class="title">Билеты</div></paper-tab>
+                        <paper-tab><div class="title">Темы</div></paper-tab>
                     </paper-tabs>
                 </core-toolbar>
 
                 <div class="{{ {scroll: !wide} | tokenList }}" layout vertical flex>
                     <core-animated-pages id="pages" selected="{{selected}}"
-                                         on-core-animated-pages-transition-end="{{done}}" transitions="hero-transition"
-                                         layout flex no-transition?="{{disabled}}">
-                        <section class="list" layout relative>
+                                         layout flex>
+                        <section class="list ticket-list" layout relative>
                             <template repeat="{{ticket in tickets}}">
-                                <paper-item>{{ticket.name}}</paper-item>
+                                <paper-item on-click="{{selectTicket}}">{{ticket.name}}</paper-item>
                             </template>
                         </section>
 
-                        <section class="list" layout relative>
+                        <section class="list theme-list" layout relative>
                             <template repeat="{{theme in themes}}">
-                                <paper-item>{{theme.names}}</paper-item>
+                                <paper-item on-click="{{selectTheme}}">{{theme.names}}</paper-item>
                             </template>
                         </section>
 
@@ -182,6 +181,11 @@
                 url="/api/themes"
                 handleAs="json"
                 response="{{themes}}"></core-ajax>
+        <core-ajax
+                id="questionsreq"
+                url="/api/questions/"
+                handleAs="json"
+                on-core-response="{{questionsLoaded}}"></core-ajax>
     </template>
     <script>
         (function () {
@@ -197,11 +201,21 @@
                 },
 
                 mainAction: function() {
-//                    if (this.$.pages.transitioning.length > 0) {
-//                        this.$.pages.complete();
-//                    }
                     this.disabled = true;
                     this.fire('main');
+                },
+                selectTheme: function(e, detail, sender) {
+                    this.sendRequest(JSON.stringify({theme:e.target.templateInstance.model.theme.number}));
+                },
+                selectTicket: function(e, detail, sender) {
+                    this.sendRequest(JSON.stringify({ticket:e.target.templateInstance.model.ticket.number}));
+                },
+                sendRequest: function(parameters) {
+                    this.$.questionsreq.params = parameters;
+                    this.$.questionsreq.go();
+                },
+                questionsLoaded: function(event, result) {
+                    console.log(arguments);
                 }
             });
 

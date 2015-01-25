@@ -1,0 +1,22 @@
+.main-button {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 10000;
+}
+
+.wide .category-bg {
+    width: 512px;
+    height: 512px;
+}
+
+.category-bg > core-icon {
+    position: absolute !important;
+    height: 100%;
+    width: 100%;
+}
+
+.wide > .main-button {
+    top: 12px;
+    left: 16px;
+}

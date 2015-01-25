@@ -1,0 +1,71 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+
+<polymer-element name="gibdd-status-bar" attributes="scores questions wide">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 64px;
+        background-color: #fff;
+      }
+
+      paper-progress {
+        width: 100%;
+      }
+
+      .info {
+        padding: 0 16px;
+      }
+
+      .wide.info {
+        padding: 0 24px;
+      }
+
+      .cat-info {
+        padding: 0 16px;
+      }
+
+      .cat-info > .title {
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      .pts {
+        font-size: 24px;
+      }
+
+      paper-progress::shadow #activeProgress {
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    </style>
+
+    <paper-progress value="{{scores.length + (scores.length === questions.length ? 0 : 1)}}" max="{{questions.length}}"></paper-progress>
+
+    <div class="info {{ {wide: wide} | tokenList }}" flex horizontal center layout>
+
+      <div class="cat-info" flex vertical layout>
+        <div class="title font-medium">{{category.name}}</div>
+        <div class="progress">{{scores.length + (scores.length === questions.length ? 0 : 1)}} / {{questions.length}}</div>
+      </div>
+
+      <div class="pts">{{pts}}</div>
+
+    </div>
+  </template>
+  <script>
+    (function () {
+
+      Polymer({
+        // define element prototype here
+        wide: false,
+
+        created: function() {
+          this.questions = [];
+          this.scores = [];
+        }
+      });
+
+    })();
+  </script>
+</polymer-element>

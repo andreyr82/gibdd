@@ -1,18 +1,52 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../gibdd-quizzes/gibdd-quizzes.html">
+<link rel="import" href="../gibdd-quiz-score/gibdd-quiz-score.html">
+<link rel="import" href="../gibdd-rules/gibdd-rules.html">
+<link rel="import" href="../gibdd-user-score/gibdd-user-score.html">
+<link rel="import" href="../../bower_components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../../bower_components/core-animated-pages/transitions/slide-up.html">
+<link rel="import" href="../../bower_components/core-animated-pages/transitions/slide-down.html">
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
-<polymer-element name="gibdd-ticket" attributes="">
+<polymer-element name="gibdd-ticket" attributes="questions wide" vertical layout>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+    <link rel="stylesheet" href="gibdd-ticket.css">
+
+    <div class="ticket-theme bg theme-bg-a {{ {wide: wide} | tokenList }}" dummy fit layout vertical center center-justified hero-id="punch" hero>
+      <div class="category-bg" relative?="{{wide}}" flex?="{{!wide}}">
+        <core-icon cross-fade-delayed?="{{parentElement.selected === 'ticket'}}" cross-fade="{{parentElement.selected !== 'ticket'}}" fit></core-icon>
+      </div>
+    </div>
+
+    <div class="ticket-theme main {{ {wide: wide} | tokenList }}" flex vertical layout>
+
+      <core-animated-pages class="ticket-pages" selected="{{selected}}" selectedItem="{{selectedItem}}" flex transitions="cross-fade cross-fade-delayed slide-up slide-down hero-transition" no-transition?="{{selected === 'front'}}" on-core-animated-pages-transition-end="{{transitionEnd}}">
+
+        <section name="empty"></section>
+
+        <gibdd-quizzes id="quizzes" name="quizzes" selectedPage="{{selected}}" scores="{{scores}}" questions="{{questions}}" avatar="{{user.avatar}}" wide="{{wide}}" on-quiz-done="{{quizDone}}"></gibdd-quizzes>
+
+        <gibdd-quiz-score name="quizScore" selectedPage="{{selected}}" scores="{{scores}}" questions="{{questions}}" avatar="{{user.avatar}}" wide="{{wide}}" quizScore="{{quizScore}}"></gibdd-quiz-score>
+
+        <gibdd-results id="results" name="results" scores="{{scores}}" questions="{{questions}}" wide="{{wide}}" on-next="{{showScore}}" cross-fade?="{{parentElement.selected === 'tickets'}}"></gibdd-results>
+
+        <gibdd-user-score name="score" scores="{{scores}}" questions="{{questions}}" wide="{{wide}}" on-next="{{mainAction}}" cross-fade?="{{parentElement.selected === 'categories'}}"></gibdd-user-score>
+
+      </core-animated-pages>
+
+      <paper-icon-button class="main-button {{ {'theme-color': !wide && selected == 'quizzes'} | tokenList }}" icon="arrow-back" hidden?="{{selected === 'results' || selected === 'score'}}" on-tap="{{mainAction}}" hero?="{{parentElement.selected === 'categories'}}" cross-fade-delayed?="{{parentElement.selected === 'category'}}"></paper-icon-button>
+
+    </div>
   </template>
   <script>
     (function () {
 
       Polymer({
         // define element prototype here
+        selected: 'quizzes',
+        selectedItem: null,
+        wide: false
       });
 
     })();

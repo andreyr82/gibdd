@@ -7,7 +7,7 @@
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
-<polymer-element name="gibdd-tickets" vertical layout>
+<polymer-element name="gibdd-tickets" attributes="questions" vertical layout>
     <template>
         <style>
             .card {
@@ -215,7 +215,8 @@
                     this.$.questionsreq.go();
                 },
                 questionsLoaded: function(event, result) {
-                    console.log(arguments);
+                    this.questions = result.response;
+                    this.fire('loaded');
                 }
             });
 

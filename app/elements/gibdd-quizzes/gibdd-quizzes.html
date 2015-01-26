@@ -15,7 +15,12 @@
 
         <core-toolbar class="theme-bg" hero-id="punch-bottom" hero?="{{parentElement.selected !== 'empty'}}">
 
-          <div class="question" flex cross-fade-delayed>{{quiz.question}}</div>
+          <div class="question" flex cross-fade-delayed>
+            <template if="{{quiz.image}}">
+              <div class="image"><img src="{{quiz.image}}"></div>
+            </template>
+            {{quiz.text}}
+          </div>
 
         </core-toolbar>
 
@@ -23,7 +28,7 @@
 
           <div id="choices">
 
-            <template repeat="{{item, i in quiz.options}}">
+            <template repeat="{{item, i in quiz.variants}}">
 
               <paper-item><span class="letter">{{i | computeLetter}}.</span> {{item}}</paper-item>
 
@@ -48,6 +53,34 @@
 
       Polymer({
         // define element prototype here
+        wide: false,
+        answered: false,
+
+        observe: {
+          'questions': 'update'
+        },
+
+        created: function() {
+          this.questions = {};
+          this.scores = [];
+        },
+
+        update: function() {
+          if (this.scores && this.questions) {
+            this.index = this.scores.length;
+            this.indexChanged();
+          }
+        },
+
+        indexChanged: function() {
+          if (this.questions) {
+            this.quiz = this.questions[this.index];
+          }
+        },
+
+        computeLetter: function(i) {
+          return String.fromCharCode(65 + i);
+        }
       });
 
     })();

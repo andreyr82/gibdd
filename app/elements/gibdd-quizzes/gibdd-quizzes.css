@@ -28,14 +28,22 @@
 }
 
 .card > core-toolbar {
-    height: 176px;
+    /*height: 176px;*/
+    min-height: 176px;
+    height: auto;
     font-size: 16px;
     line-height: 26px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .card > core-toolbar::shadow #topBar {
-    height: 176px;
+    /*height: 176px;*/
+    min-height: 176px;
+    height: auto;
+}
+
+.card .image img {
+    width: 100%;
 }
 
 .quizzes-panel.wide > .card > core-toolbar {
@@ -43,7 +51,7 @@
 }
 
 .quizzes-panel.wide core-toolbar > .question {
-    padding: 0 8px;
+    padding: 10px 8px;
 }
 
 .quizzes-content {

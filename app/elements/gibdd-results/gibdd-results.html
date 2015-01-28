@@ -1,18 +1,75 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-selector/core-selector.html">
+<link rel="import" href="../../bower_components/core-icon/core-icon.html">
+<link rel="import" href="../../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../gibdd-status-bar/gibdd-status-bar.html">
 
-<polymer-element name="gibdd-results" attributes="">
+<polymer-element name="gibdd-results" attributes="scores question wide" vertical layout>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+      <link rel="stylesheet" href="gibdd-results.css">
+      <div id="resultsPanel" class="results-panel {{ {wide: wide} | tokenList }}" flex vertical layout?="{{!wide}}" slide-down?="{{parentElement.selected !== 'results'}}" slide-up?="{{parentElement.selected === 'results'}}">
+
+          <div class="card" flex?="{{!wide}}" vertical layout?="{{!wide}}">
+
+              <core-toolbar class="theme-bg">
+
+                  <div class="title font-light">Scorecard</div>
+
+              </core-toolbar>
+
+              <div id="resultsContent" class="results-content" flex>
+
+                  <core-selector selected="{{selected}}">
+
+                      <template repeat="{{score, index in scores}}">
+
+                          <div class="result-item" horizontal layout>
+
+                              <core-icon icon="{{score ? 'done' : 'clear'}}" class="{{ {fail: !score} | tokenList }}"></core-icon>
+
+                              <div flex vertical layout>
+
+                                  <div>{{questions[index].text}}</div>
+
+                                  <div class="answer" hidden?="{{questions[index].variants}}">{{questions[index].answer}}</div>
+                                  <template repeat="{{i in questions[index].answer}}">
+                                      <div class="answer">{{questions[index].options[i]}}</div>
+                                  </template>
+
+                              </div>
+
+                          </div>
+
+                      </template>
+
+                  </core-selector>
+
+              </div>
+
+              <paper-fab icon="check" on-tap="{{nextAction}}"></paper-fab>
+
+          </div>
+
+      </div>
+
+      <gibdd-status-bar class="{{ {wide: wide} | tokenList }}" scores="{{scores}}" questions="{{questions}}" wide="{{wide}}" slide-up></gibdd-status-bar>
+
   </template>
   <script>
     (function () {
 
       Polymer({
         // define element prototype here
+          resetScrollTop: function() {
+              this.$.resultsPanel.scrollTop = 0;
+              this.$.resultsContent.scrollTop = 0;
+          },
+
+          nextAction: function() {
+              this.resetScrollTop();
+              this.fire('next');
+          }
       });
 
     })();

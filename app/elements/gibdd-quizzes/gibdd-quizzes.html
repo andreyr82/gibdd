@@ -36,11 +36,9 @@
 
           </div>
 
-          <core-selector target="{{$.choices}}" selected="{{value}}"></core-selector>
+          <core-selector target="{{$.choices}}" selected="{{value}}" on-core-select="{{quizDone}}"></core-selector>
 
         </div>
-
-        <paper-fab class="check-button {{ {correct: scores[index] > 0, incorrect: scores[index] === 0} | tokenList }}" icon="{{icon}}" on-tap="{{quizDone}}"></paper-fab>
 
       </div>
 
@@ -80,6 +78,19 @@
 
         computeLetter: function(i) {
           return String.fromCharCode(65 + i);
+        },
+
+        getScore: function() {
+          return this.value == this.quiz.answer ? 1 : -1;
+        },
+
+        quizDone: function() {
+          var s = this.getScore();
+          this.scores[this.index] = s;
+
+          this.async(function() {
+            this.fire('quiz-done', {score: s});
+          }, null, parseInt(CoreStyle.g.transitions.duration));
         }
       });
 

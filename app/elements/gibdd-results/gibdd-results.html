@@ -5,7 +5,7 @@
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../gibdd-status-bar/gibdd-status-bar.html">
 
-<polymer-element name="gibdd-results" attributes="scores question wide" vertical layout>
+<polymer-element name="gibdd-results" attributes="scores questions wide" vertical layout>
   <template>
       <link rel="stylesheet" href="gibdd-results.css">
       <div id="resultsPanel" class="results-panel {{ {wide: wide} | tokenList }}" flex vertical layout?="{{!wide}}" slide-down?="{{parentElement.selected !== 'results'}}" slide-up?="{{parentElement.selected === 'results'}}">
@@ -26,7 +26,7 @@
 
                           <div class="result-item" horizontal layout>
 
-                              <core-icon icon="{{score ? 'done' : 'clear'}}" class="{{ {fail: !score} | tokenList }}"></core-icon>
+                              <core-icon icon="{{score > 0 ? 'done' : 'clear'}}" class="{{ {fail: score < 0} | tokenList }}"></core-icon>
 
                               <div flex vertical layout>
 
@@ -34,7 +34,7 @@
 
                                   <div class="answer" hidden?="{{questions[index].variants}}">{{questions[index].answer}}</div>
                                   <template repeat="{{i in questions[index].answer}}">
-                                      <div class="answer">{{questions[index].options[i]}}</div>
+                                      <div class="answer">{{questions[index].variants[i]}}</div>
                                   </template>
 
                               </div>

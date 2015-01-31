@@ -33,7 +33,7 @@
 
                         <template repeat="{{item, i in quiz.variants}}">
 
-                            <paper-item><span class="letter">{{i | computeLetter}}.</span> {{item}}</paper-item>
+                            <paper-item><span class="letter">{{i | computeLetter}}.</span><span class="item">{{item}}</span></paper-item>
 
                         </template>
 

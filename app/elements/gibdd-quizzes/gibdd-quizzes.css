@@ -51,7 +51,14 @@
 }
 
 .quizzes-panel.wide core-toolbar > .question {
+    font-size: 16px;
+    height: 100%;
+    color: rgb(68, 68, 68);
+    margin: 10px 0;
     padding: 10px 8px;
+    background-color: #ffffff;
+    font-family: RobotoDraft;
+    min-height: 136px;
 }
 
 .quizzes-content {
@@ -126,4 +133,13 @@ gibdd-status-bar {
 gibdd-status-bar.wide {
     width: 512px;
     margin: 0 auto;
+}
+
+.letter {
+    margin: 5px;
+    width: 24px;
+}
+
+.item {
+    width: 446px;
 }

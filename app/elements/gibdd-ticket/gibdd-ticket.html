@@ -70,6 +70,13 @@
                     this.questions = [];
                 },
 
+                eventDelegates: {
+                    'main': 'reset'
+                },
+
+                reset: function() {
+                    this.scores = [];
+                },
 
                 transitionEnd: function() {
                     if (this.selected === 'quizScore') {

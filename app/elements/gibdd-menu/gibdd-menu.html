@@ -5,7 +5,7 @@
 
 <polymer-element name="gibdd-menu" attributes="wide item" vertical layout>
   <template>
-    <link rel="stylesheet" href="gibdd-menu.css">
+    <link rel="stylesheet" href="gibdd-menu.css" shim-shadowdom>
 
     <div class="menu" flex auto>
       <core-toolbar class="menu-toolbar" slide-down?="{{parentElement.selected !== 'ticket' && parentElement.lastSelected !== 'ticket'}}">

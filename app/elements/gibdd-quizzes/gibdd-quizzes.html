@@ -7,7 +7,7 @@
 
 <polymer-element name="gibdd-quizzes" attributes="scores questions wide" vertical layout>
     <template>
-        <link rel="stylesheet" href="gibdd-quizzes.css">
+        <link rel="stylesheet" href="gibdd-quizzes.css" shim-shadowdom>
 
         <div id="quizzesPanel" class="quizzes-panel {{ {wide: wide} | tokenList }}" flex vertical layout?="{{!wide}}"
              slide-up?="{{parentElement.selected !== 'empty'}}" slide-down?="{{parentElement.selected === 'empty'}}">

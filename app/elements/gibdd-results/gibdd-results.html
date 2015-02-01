@@ -7,7 +7,7 @@
 
 <polymer-element name="gibdd-results" attributes="scores questions wide" vertical layout>
   <template>
-      <link rel="stylesheet" href="gibdd-results.css">
+      <link rel="stylesheet" href="gibdd-results.css" shim-shadowdom>
       <div id="resultsPanel" class="results-panel {{ {wide: wide} | tokenList }}" flex vertical layout?="{{!wide}}" slide-down?="{{parentElement.selected !== 'results'}}" slide-up?="{{parentElement.selected === 'results'}}">
 
           <div class="card" flex?="{{!wide}}" vertical layout?="{{!wide}}">

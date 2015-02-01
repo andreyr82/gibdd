@@ -10,7 +10,7 @@
 <link rel="import" href="../../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
-<polymer-element name="gibdd-ticket" attributes="questions wide" vertical layout>
+<polymer-element name="gibdd-ticket" attributes="questions selected wide" vertical layout>
     <template>
         <link rel="stylesheet" href="gibdd-ticket.css">
 
@@ -26,13 +26,13 @@
 
             <core-animated-pages class="ticket-pages" selected="{{selected}}" selectedItem="{{selectedItem}}" flex
                                  transitions="cross-fade cross-fade-delayed slide-up slide-down hero-transition"
-                                 no-transition?="{{selected === 'front'}}"
+                                 no-transition?="{{selected === 'quizzes'}}"
                                  on-core-animated-pages-transition-end="{{transitionEnd}}">
 
                 <section name="empty"></section>
 
                 <gibdd-quizzes id="quizzes" name="quizzes" selectedPage="{{selected}}" scores="{{scores}}"
-                               questions="{{questions}}" avatar="{{user.avatar}}" wide="{{wide}}"
+                               questions="{{questions}}" wide="{{wide}}"
                                on-quiz-done="{{quizDone}}"></gibdd-quizzes>
 
                 <gibdd-quiz-score name="quizScore" selectedPage="{{selected}}" scores="{{scores}}"
@@ -45,7 +45,7 @@
 
                 <gibdd-user-score name="score" scores="{{scores}}" questions="{{questions}}" wide="{{wide}}"
                                   on-next="{{mainAction}}"
-                                  cross-fade?="{{parentElement.selected === 'categories'}}"></gibdd-user-score>
+                                  cross-fade?="{{parentElement.selected === 'menu'}}"></gibdd-user-score>
 
             </core-animated-pages>
 
@@ -103,7 +103,11 @@
                 },
 
                 mainAction: function () {
-                    this.fire('main');
+                    if (this.selected !== 'quizzes') {
+                        this.selected = 'empty';
+                    } else {
+                        this.fire('main');
+                    }
                 },
 
                 quizDone: function (e, detail) {

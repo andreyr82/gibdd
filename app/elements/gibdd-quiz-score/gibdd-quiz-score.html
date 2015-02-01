@@ -11,6 +11,7 @@
               font-size: 76px;
               margin: 100px auto 0;
               box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+              color: #ffffff;
           }
           .dummy {
               margin-bottom: 100px;
@@ -25,10 +26,18 @@
               width: 512px;
               margin: 0 auto;
           }
+
+          .score.fail {
+              background-color: #f50057;
+          }
+
+          .score.correct {
+              background-color: #00c853;
+          }
       </style>
 
       <div flex slide-down?="{{selectedPage === 'quizzes'}}">
-          <div class="score theme-bg font-light" vertical center center-justified layout hero-id="punch-bottom" hero?="{{selectedPage !== 'quizzes'}}">
+          <div class="score theme-bg font-light {{quizScore>0 ? 'correct' : 'fail'}}" vertical center center-justified layout hero-id="punch-bottom" hero?="{{selectedPage !== 'quizzes'}}">
               <span cross-fade-delayed>{{quizScore || 0}}</span>
           </div>
           <div class="dummy" hero-id="quizzes-content" hero?="{{selectedPage !== 'quizzes'}}"></div>

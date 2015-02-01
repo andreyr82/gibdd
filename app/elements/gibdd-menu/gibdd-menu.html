@@ -12,8 +12,8 @@
         <div>{{score}}</div>
       </core-toolbar>
       <core-selector valueattr="data-name" class="menu-list content {{ {wide: wide} | tokenList }}" selected="{{selected}}" tile-cascade?="{{parentElement.selected !== 'ticket' && parentElement.lastSelected !== 'ticket'}}">
-        <div class="menu-item tickets" data-name="tickets" vertical layout>
-          <div class="tile theme-bg-a" dummy fit></div>
+        <div class="menu-item tickets" data-name="tickets" vertical layout needZ?="{{item === 'tickets'}}">
+          <div class="tile theme-bg-a" dummy fit hero-id="{{item === 'tickets' ? 'punch' : ''}}" hero?="{{item === 'tickets'}}"></div>
           <div class="tile" flex vertical layout>
             <div flex relative>
               <!-- sizing wrapper -->
@@ -23,9 +23,11 @@
                 </div>
               </div>
             </div>
-            <div class="cat-name" horizontal center layout>
-              <div flex>Билеты</div>
-              <core-icon class="menu-icon" icon="arrow-forward"></core-icon>
+            <div class="cat-name" horizontal center layout hero-id="{{item === 'tickets' ? 'punch-bottom' : ''}}" hero?="{{item === 'tickets'}}">
+              <div flex>
+                  <span cross-fade-delayed?="{{item === 'tickets' && parentElement.lastSelected === 'ticket'}}">Билеты</span>
+              </div>
+              <core-icon class="menu-icon" icon="arrow-forward" cross-fade-delayed?="{{item === 'tickets' && parentElement.lastSelected === 'ticket'}}"></core-icon>
             </div>
           </div>
         </div>

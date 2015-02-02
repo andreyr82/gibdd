@@ -12,8 +12,7 @@
         <div id="quizzesPanel" class="quizzes-panel {{ {wide: wide} | tokenList }}" flex vertical layout?="{{!wide}}"
              slide-up?="{{parentElement.selected !== 'empty'}}" slide-down?="{{parentElement.selected === 'empty'}}">
 
-            <div class="card {{ {answered: answered} | tokenList }}" flex?="{{!wide}}" vertical layout?="{{!wide}}"
-                 hero-p>
+            <div class="card {{ {answered: answered} | tokenList }}" flex?="{{!wide}}" vertical layout?="{{!wide}}" hero-p>
 
                 <core-toolbar class="theme-bg" hero-id="punch-bottom" hero?="{{parentElement.selected !== 'empty'}}">
 

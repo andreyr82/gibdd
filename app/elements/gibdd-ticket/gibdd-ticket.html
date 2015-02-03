@@ -3,6 +3,7 @@
 <link rel="import" href="../gibdd-quiz-score/gibdd-quiz-score.html">
 <link rel="import" href="../gibdd-rules/gibdd-rules.html">
 <link rel="import" href="../gibdd-results/gibdd-results.html">
+<link rel="import" href="../gibdd-comment/gibdd-comment.html">
 <link rel="import" href="../gibdd-user-score/gibdd-user-score.html">
 <link rel="import" href="../../bower_components/core-animated-pages/core-animated-pages.html">
 <link rel="import" href="../../bower_components/core-animated-pages/transitions/slide-up.html">
@@ -37,6 +38,10 @@
                 <gibdd-quiz-score name="quizScore" selectedPage="{{selected}}" scores="{{scores}}"
                                   questions="{{questions}}" wide="{{wide}}"
                                   quizScore="{{quizScore}}"></gibdd-quiz-score>
+
+                <gibdd-comment name="comment" selectedPage="{{selected}}" scores="{{scores}}"
+                                  questions="{{questions}}" wide="{{wide}}" on-next="{{showQuizScore}}"
+                                  quizIndex="{{quizIndex}}"></gibdd-comment>
 
                 <gibdd-results id="results" name="results" scores="{{scores}}" questions="{{questions}}" wide="{{wide}}"
                                on-next="{{showScore}}"
@@ -101,6 +106,10 @@
                     this.selected = 'score';
                 },
 
+                showQuizScore: function() {
+                    this.selected = 'quizScore';
+                },
+
                 mainAction: function () {
                     if (this.selected !== 'quizzes') {
                         this.selected = 'empty';
@@ -111,8 +120,13 @@
 
                 quizDone: function (e, detail) {
                     this.$.quizzes.resetScrollTop();
-                    this.selected = 'quizScore';
                     this.quizScore = detail.score;
+                    this.quizIndex = detail.index;
+                    if(this.quizScore>0) {
+                        this.selected = 'quizScore';
+                    } else {
+                        this.selected = 'comment';
+                    }
                 }
             });
 

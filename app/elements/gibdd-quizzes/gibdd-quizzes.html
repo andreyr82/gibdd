@@ -109,7 +109,7 @@
                         this.scores[this.index] = s;
 
                         this.async(function () {
-                            this.fire('quiz-done', {score: s});
+                            this.fire('quiz-done', {score: s, index: this.index});
                         }, null, parseInt(CoreStyle.g.transitions.duration));
                     }
                 }

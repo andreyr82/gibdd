@@ -19,7 +19,7 @@ app.use(methodOverride()); // поддержка put и delete
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
-app.use(express.static(path.join(__dirname, "../app"))); // запуск статического файлового сервера, который смотрит на папку public/ (в нашем случае отдает index.html)
+app.use(express.static(path.join(__dirname, "../dist"))); // запуск статического файлового сервера, который смотрит на папку public/ (в нашем случае отдает index.html)
 
 app.get('/api', function (req, res) {
     res.send('API is running');

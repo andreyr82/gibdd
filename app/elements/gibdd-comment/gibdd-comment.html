@@ -3,18 +3,18 @@
 <polymer-element name="gibdd-comment" attributes="scores quizIndex questions wide" vertical layout>
   <template>
       <link rel="stylesheet" href="gibdd-comment.css" shim-shadowdom>
-      <div id="commentPanel" class="comment-panel {{ {wide: wide} | tokenList }}" flex vertical layout?="{{!wide}}" slide-down?="{{parentElement.selected !== 'comment'}}" slide-up?="{{parentElement.selected === 'comment'}}">
+      <div id="commentPanel" class="comment-panel {{ {wide: wide} | tokenList }}" flex vertical layout?="{{!wide}}" cross-fade slide-up?="{{parentElement.selected === 'comment'}}">
 
           <div class="card" flex?="{{!wide}}" vertical layout?="{{!wide}}">
 
-              <core-toolbar class="theme-bg" hero-id="punch-bottom" hero?="{{parentElement.selected !== 'empty'}}">
+              <core-toolbar class="theme-bg" hero-id="punch-bottom" hero?="{{parentElement.selected !== 'comment'}}">
 
                   <div class="title font-light">Комментарий</div>
 
               </core-toolbar>
 
               <div id="commentContent" class="comment-content" flex hero-id="quizzes-content"
-                   hero?="{{parentElement.selected !== 'empty'}}">
+                   hero?="{{parentElement.selected !== 'comment'}}">
 
                           <div class="comment-item" horizontal layout>
 

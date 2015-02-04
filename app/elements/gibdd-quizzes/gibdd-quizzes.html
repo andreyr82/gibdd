@@ -85,6 +85,9 @@
                 update: function () {
                     if (this.scores && this.questions) {
                         this.index = this.scores.length;
+                        if(!this.index) {
+                            this.reset();
+                        }
                         this.indexChanged();
                     }
                 },

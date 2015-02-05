@@ -18,7 +18,7 @@
                   <div class="main font-light" flex auto layout vertical>
 
                       <div class="category-info">
-                          <div class="big">{{correct}} баллов</div>
+                          <div class="big">{{result}} баллов</div>
                       </div>
 
                       <div class="total-info">
@@ -55,16 +55,31 @@
           scoresChanged: function() {
               this.pts = 0;
               this.correct = 0;
+              this.result = '';
               if (this.scores) {
                   for (var i = 0; i < this.scores.length; i++) {
                       var s = this.scores[i] || 0;
                       this.pts += s;
                       if (s>0) {
                           this.correct++;
+                          this.result = this.correct +  ' ' + this.wordCase();
                       }
                   }
               }
               this.fire('score-update');
+          },
+
+          wordCase: function(number) {
+              switch (number % 10) {
+                  case 1:
+                      return 'балл';
+                  case 2:
+                  case 3:
+                  case 4:
+                      return 'балла';
+                  default:
+                      return 'баллов';
+              }
           },
 
           nextAction: function() {

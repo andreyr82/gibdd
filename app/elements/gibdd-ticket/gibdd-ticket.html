@@ -11,7 +11,7 @@
 <link rel="import" href="../../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
-<polymer-element name="gibdd-ticket" attributes="questions selected wide" vertical layout>
+<polymer-element name="gibdd-ticket" attributes="active questions selected wide" vertical layout>
     <template>
         <link rel="stylesheet" href="gibdd-ticket.css" shim-shadowdom>
 
@@ -111,11 +111,11 @@
                 },
 
                 mainAction: function () {
-                    if (this.selected !== 'quizzes') {
-                        this.selected = 'empty';
-                    } else {
+//                    if (this.selected !== 'quizzes') {
+//                        this.selected = 'empty';
+//                    } else {
                         this.fire('main');
-                    }
+//                    }
                 },
 
                 quizDone: function (e, detail) {
@@ -126,6 +126,12 @@
                         this.selected = 'quizScore';
                     } else {
                         this.selected = 'comment';
+                    }
+                },
+
+                activeChanged: function() {
+                    if(this.active === null) {
+                        this.selected = 'quizzes';
                     }
                 }
             });

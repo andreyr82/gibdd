@@ -136,20 +136,20 @@
             }
         </style>
 
-        <div class="bg" fit dummy cross-fade></div>
+        <div class="bg" fit dummy hero-id="punch" hero></div>
 
         <div class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
             <div flex vertical layout slide-up-offscreen?="{{parentElement.selected === 'tickets'}}"
                  cross-fade="{{!wide && parentElement.selected !== 'tickets'}}"
                  class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
-                <core-toolbar>
+                <core-toolbar hero-id="punch-bottom" hero?="{{parentElement.selected !== 'tickets'}}">
                     <paper-tabs class="tabs" selected="{{selected}}" self-end>
                         <paper-tab><div class="title">Билеты</div></paper-tab>
                         <paper-tab><div class="title">Темы</div></paper-tab>
                     </paper-tabs>
                 </core-toolbar>
 
-                <div class="{{ {scroll: !wide} | tokenList }}" layout vertical flex>
+                <div class="{{ {scroll: !wide} | tokenList }}" layout vertical flex hero-id="quizzes-content" hero?="{{parentElement.selected !== 'tickets'}}">
                     <core-animated-pages id="pages" selected="{{selected}}"
                                          layout flex>
                         <section class="list ticket-list" layout relative>

@@ -107,8 +107,24 @@
     background-color: #f5f5f5;
 }
 
-.tickets .cat-name, .rules .cat-name, .signs .cat-name, .marking .cat-name, .penalty .cat-name {
+.tickets .cat-name {
+    background-color: #1de9b6;
+}
+
+.rules .cat-name {
+    background-color: #147FDB;
+}
+
+.signs .cat-name {
+    background-color: #C61E00;
+}
+
+.marking .cat-name {
     background-color: #999;
+}
+
+.penalty .cat-name {
+    background-color: #ffeb3b;
 }
 
 .polymer-logo > .tile {

@@ -2,17 +2,17 @@
     position: relative;
     /* TODO(sjmiles): why is this necessary? */
     overflow-x: hidden;
-    background-color: #424242;
+    background-color: rgb(221, 221, 221);
 }
 
 .menu-toolbar {
-    height: 100px;
+    height: 50px;
     z-index: 1;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
 .menu-toolbar::shadow #topBar {
-    height: 96px;
+    height: 48px;
 }
 
 .gibdd-avatar {
@@ -33,7 +33,7 @@
 .menu-list {
     display: block;
     position: absolute;
-    top: 100px;
+    top: 50px;
     right: 0;
     bottom: 0;
     left: 0;

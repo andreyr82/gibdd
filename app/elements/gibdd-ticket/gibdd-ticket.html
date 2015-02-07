@@ -53,7 +53,7 @@
 
             </core-animated-pages>
 
-            <paper-icon-button class="main-button {{ {'theme-color': !wide && selected == 'quizzes'} | tokenList }}"
+            <paper-icon-button class="main-button {{ {wide: wide} | tokenList }}"
                                icon="arrow-back" hidden?="{{selected === 'results' || selected === 'score'}}"
                                on-tap="{{mainAction}}" hero?="{{parentElement.selected === 'menu'}}"
                                cross-fade-delayed?="{{parentElement.selected === 'ticket'}}"></paper-icon-button>

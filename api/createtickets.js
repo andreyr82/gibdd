@@ -1,14 +1,15 @@
 /**
  * Created by Андрей on 14.01.2015.
  */
-var ThemeModel    = require('./libs/mongoose').ThemeModel;
-var themes;
+var RuleModel    = require('./libs/mongoose').RuleModel;
+var rules;
 
-    themes = require('../themes/themes.json');
-    themes.forEach(function(t) {
-        var theme = new ThemeModel({
+    rules = require('../rules/rules.json');
+    rules.forEach(function(t) {
+        var rule = new RuleModel({
             number: t.number,
-            names: t.names
+            themeNumber: t.themeNumber,
+            text: t.text
         });
-        theme.save();
+        rule.save();
     });

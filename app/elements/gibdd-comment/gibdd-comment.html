@@ -20,7 +20,7 @@
 
                               <div flex vertical layout>
 
-                                  <div>{{questions[quizIndex].comment}}</div>
+                                  <div id="commentText"></div>
 
                               </div>
 
@@ -41,6 +41,10 @@
 
       Polymer({
         // define element prototype here
+          quizIndexChanged: function() {
+              this.$.commentText.innerHTML = this.questions[this.quizIndex].comment;
+          },
+
           resetScrollTop: function() {
               this.$.commentPanel.scrollTop = 0;
               this.$.commentContent.scrollTop = 0;

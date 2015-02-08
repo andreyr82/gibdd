@@ -3,7 +3,7 @@
 <polymer-element name="gibdd-comment" attributes="scores quizIndex questions wide" vertical layout>
   <template>
       <link rel="stylesheet" href="gibdd-comment.css" shim-shadowdom>
-      <div id="commentPanel" class="comment-panel {{ {wide: wide} | tokenList }}" flex vertical layout?="{{!wide}}" slide-down?="{{parentElement.selected === 'empty'}}" slide-up?="{{parentElement.selected === 'comment'}}">
+      <div id="commentPanel" class="comment-panel {{ {wide: wide} | tokenList }}" flex vertical layout?="{{!wide}}">
 
           <div class="card" flex?="{{!wide}}" vertical layout?="{{!wide}}" hero-p>
 

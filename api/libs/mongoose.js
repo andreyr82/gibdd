@@ -46,7 +46,8 @@ var Ruletheme = new Schema({
 var Rule = new Schema({
     number: { type: String, required: true },
     themeNumber: { type: Number, required: true },
-    text: { type: String, required: true }
+    text: { type: String, required: true },
+    image: { type: String }
 });
 
 var QuestionModel = mongoose.model('Question', Question);

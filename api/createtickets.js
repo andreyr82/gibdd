@@ -9,7 +9,8 @@ var rules;
         var rule = new RuleModel({
             number: t.number,
             themeNumber: t.themeNumber,
-            text: t.text
+            text: t.text,
+            image: t.image
         });
         rule.save();
     });

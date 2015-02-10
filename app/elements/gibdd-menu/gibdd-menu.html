@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="gibdd-menu.css" shim-shadowdom>
 
     <div class="menu" flex auto>
-      <core-toolbar class="menu-toolbar" slide-down?="{{parentElement.selected !== 'ticket' && parentElement.lastSelected !== 'ticket'}}">
+      <core-toolbar class="menu-toolbar" slide-down>
         <div>{{score}}</div>
       </core-toolbar>
-      <core-selector valueattr="data-name" class="menu-list content {{ {wide: wide} | tokenList }}" selected="{{selected}}" tile-cascade?="{{parentElement.selected !== 'ticket' && parentElement.lastSelected !== 'ticket'}}">
+      <core-selector valueattr="data-name" class="menu-list content {{ {wide: wide} | tokenList }}" selected="{{selected}}" tile-cascade>
         <div class="menu-item tickets" data-name="tickets" vertical layout needZ?="{{item === 'tickets'}}">
           <div class="tile theme-bg-a" dummy fit hero-id="{{item === 'tickets' ? 'punch' : ''}}" hero?="{{item === 'tickets'}}"></div>
           <div class="tile" flex vertical layout>
@@ -32,8 +32,8 @@
           </div>
         </div>
 
-        <div class="menu-item rules" data-name="rules" vertical layout>
-          <div class="tile theme-bg-a" dummy fit></div>
+        <div class="menu-item themes" data-name="themes" vertical layout needZ?="{{item === 'themes'}}">
+          <div class="tile theme-bg-a" dummy fit fit hero-id="{{item === 'themes' ? 'punch' : ''}}" hero?="{{item === 'themes'}}"></div>
           <div class="tile" flex vertical layout>
             <div flex relative>
               <!-- sizing wrapper -->
@@ -43,9 +43,11 @@
                 </div>
               </div>
             </div>
-            <div class="cat-name" horizontal center layout>
-              <div flex>Правила</div>
-              <core-icon class="menu-icon" icon="arrow-forward"></core-icon>
+            <div class="cat-name" horizontal center layout hero-id="{{item === 'themes' ? 'punch-bottom' : ''}}" hero?="{{item === 'themes'}}">
+              <div flex>
+                  <span cross-fade-delayed?="{{item === 'themes' && parentElement.lastSelected === 'themes'}}">Правила</span>
+              </div>
+              <core-icon class="menu-icon" icon="arrow-forward" cross-fade-delayed?="{{item === 'themes' && parentElement.lastSelected === 'themes'}}"></core-icon>
             </div>
           </div>
         </div>

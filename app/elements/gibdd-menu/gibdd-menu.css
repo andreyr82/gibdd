@@ -99,11 +99,11 @@
     font-family: "RobotoDraft", sans-serif;
 }
 
-.tickets, .rules, .signs, .marking, .penalty {
+.tickets, .themes, .signs, .marking, .penalty {
     color: #fff;
 }
 
-.tickets .theme-bg-a, .rules .theme-bg-a, .signs .theme-bg-a, .marking .theme-bg-a, .penalty .theme-bg-a {
+.tickets .theme-bg-a, .themes .theme-bg-a, .signs .theme-bg-a, .marking .theme-bg-a, .penalty .theme-bg-a {
     background-color: #f5f5f5;
 }
 
@@ -111,7 +111,7 @@
     background-color: #1de9b6;
 }
 
-.rules .cat-name {
+.themes .cat-name {
     background-color: #147FDB;
 }
 

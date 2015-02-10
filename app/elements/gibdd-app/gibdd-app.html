@@ -12,6 +12,7 @@
 <link rel="import" href="../gibdd-signs/gibdd-signs.html">
 <link rel="import" href="../gibdd-penalty/gibdd-penalty.html">
 <link rel="import" href="../gibdd-menu/gibdd-menu.html">
+<link rel="import" href="../gibdd-rules-themes/gibdd-rules-themes.html">
 
 <polymer-element name="gibdd-app" attributes="" vertical layout>
     <template>
@@ -24,7 +25,8 @@
             <gibdd-menu id="menu" name="menu" wide="{{wide}}" item="{{item}}" on-core-activate="{{itemSelect}}"></gibdd-menu>
             <gibdd-tickets id="tickets" name="tickets" questions="{{questions}}" allScores="{{allScores}}" wide="{{wide}}" on-loaded="{{showQuestions}}"></gibdd-tickets>
             <gibdd-ticket id="ticket" name="ticket" questions="{{questions}}" allScores="{{allScores}}" wide="{{wide}}"></gibdd-ticket>
-            <gibdd-rules id="rules" name="rules" wide="{{wide}}"></gibdd-rules>
+            <gibdd-rules-themes id="themes" name="themes" rules="{{rules}}" theme="{{theme}}" wide="{{wide}}" on-loaded="{{showRules}}"></gibdd-rules-themes>
+            <gibdd-rules id="rules" name="rules" rules="{{rules}}" theme="{{theme}}" wide="{{wide}}" on-back="{{showThemes}}"></gibdd-rules>
             <gibdd-signs id="signs" name="signs" wide="{{wide}}"></gibdd-signs>
             <gibdd-penalty id="penalty" name="penalty" wide="{{wide}}"></gibdd-penalty>
         </core-animated-pages>
@@ -60,6 +62,14 @@
 
                 showQuestions: function(e) {
                     this.selected = 'ticket';
+                },
+
+                showRules: function(e) {
+                    this.selected = 'rules';
+                },
+
+                showThemes: function(e) {
+                    this.selected = 'themes';
                 }
             });
 

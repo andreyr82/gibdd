@@ -1,11 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/core-selector/core-selector.html">
-<link rel="import" href="../../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../gibdd-rule/gibdd-rule.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
-<polymer-element name="gibdd-rules" attributes="wide rules theme" vertical layout>
+<polymer-element name="gibdd-rules-themes" attributes="wide rules theme" vertical layout>
     <template>
         <style>
             .card {
@@ -120,28 +120,7 @@
             .list {
                 background-color: #ffffff;
             }
-            .rules-item {
-                border-bottom: 1px solid #ddd;
-                padding: 16px;
-                line-height: 22px;
-            }
 
-            .rules-item:last-of-type {
-                border: 0;
-            }
-
-            .wide .rules-item {
-                padding: 24px;
-            }
-
-            .rules-item > core-icon {
-                padding-right: 32px;
-                color: #00c853;
-            }
-
-            .rules-item > core-icon.fail {
-                color: #f50057;
-            }
             .bg {
                 background-color: #eee;
             }
@@ -149,52 +128,70 @@
                 z-index: -1;
             }
         </style>
-        <div class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
-            <div flex vertical layout slide-up?="{{parentElement.selected === 'rules'}}"
-                 cross-fade="{{!wide && parentElement.selected !== 'rules'}}"
-                 class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
+        <div class="bg" fit dummy hero-id="punch" hero?="{{parentElement.lastSelected !== 'rules'}}"></div>
 
-                <core-toolbar hero-id="punch-bottom" hero?="{{parentElement.selected !== 'rules'}}">
+        <div class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
+            <div flex vertical layout slide-up?="{{parentElement.selected === 'themes'}}"
+                 cross-fade="{{!wide && parentElement.selected !== 'themes'}}"
+                 class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
+                <core-toolbar hero-id="punch-bottom" hero?="{{parentElement.selected !== 'themes'}}">
                     <div class="header" horizontal center layout self-end>
-                        <div class="title">{{theme}}</div>
+                        <div class="title">Темы</div>
                     </div>
                 </core-toolbar>
 
                 <div class="{{ {scroll: !wide} | tokenList }}" layout flex hero-id="rules-content"
-                     hero?="{{parentElement.selected !== 'rules'}}">
-                    <div class="list theme-list" layout relative>
-
-                        <template repeat="{{rule, index in rules}}">
-
-                            <div class="rules-item" horizontal layout>
-
-                                <div flex vertical layout>
-
-                                    <div><b>{{rule.number}}</b>&nbsp;<gibdd-rule rule="{{rule.text}}"></gibdd-rule></div>
-
-                                </div>
-
-                            </div>
-
-                        </template>
-
-                    </div>
-
+                     hero?="{{parentElement.selected !== 'themes'}}">
+                        <div class="list theme-list" layout relative>
+                            <template repeat="{{theme in themes}}">
+                                <paper-item on-click="{{selectTheme}}">{{theme.name}}</paper-item>
+                            </template>
+                        </div>
                 </div>
-
             </div>
             <paper-icon-button hidden?="{{tvmode}}" class="main-button {{ {wide: wide} | tokenList }}" icon="arrow-back"
-                               on-tap="{{backAction}}" cross-fade-delayed?="{{!disabled}}"
+                               on-tap="{{mainAction}}" cross-fade-delayed?="{{!disabled}}"
                                hero?="{{!disabled}}"></paper-icon-button>
         </div>
+        <core-ajax
+                auto
+                url="/api/rulethemes"
+                handleAs="json"
+                response="{{themes}}"></core-ajax>
+        <core-ajax
+                id="rulesreq"
+                url="/api/rules/"
+                handleAs="json"
+                on-core-response="{{rulesLoaded}}"></core-ajax>
     </template>
     <script>
         (function () {
 
             Polymer({
                 // define element prototype here
-                backAction: function() {
-                    this.fire('back');
+                publish: {
+                    disabled: false,
+                    columns: 1,
+                    tvmode: false,
+                    duration: -1,
+                    wide: false
+                },
+
+                mainAction: function() {
+                    this.disabled = true;
+                    this.fire('main');
+                },
+                selectTheme: function(e, detail, sender) {
+                    this.theme = e.target.templateInstance.model.theme.name;
+                    this.sendRequest(JSON.stringify({theme:e.target.templateInstance.model.theme.number}));
+                },
+                sendRequest: function(parameters) {
+                    this.$.rulesreq.params = parameters;
+                    this.$.rulesreq.go();
+                },
+                rulesLoaded: function(event, result) {
+                    this.rules = result.response;
+                    this.fire('loaded');
                 }
             });
 

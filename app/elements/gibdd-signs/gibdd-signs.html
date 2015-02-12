@@ -171,6 +171,9 @@
                 <div flex vertical layout>
 
                   <div><b>{{sign.number}}</b>&nbsp;{{sign.name}}</div>
+                  <template if="{{sign.images.length}}" repeat="{{image in images}}">
+                    <div class="image"><img src="/images{{image}}"></div>
+                  </template>
                   <div><gibdd-html content="{{sign.text}}"></gibdd-html></div>
 
                 </div>

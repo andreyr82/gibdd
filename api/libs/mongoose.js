@@ -57,6 +57,7 @@ var Signcategory = new Schema({
 
 var Sign = new Schema({
     number: { type: String, required: true },
+    name: { type: String, required: true },
     category: { type: Number, required: true },
     text: { type: String, required: true },
     images: { type: [String] }

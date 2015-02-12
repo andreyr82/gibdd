@@ -3,7 +3,7 @@
 <link rel="import" href="../../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../../bower_components/core-toolbar/core-toolbar.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../gibdd-rule/gibdd-rule.html">
+<link rel="import" href="../gibdd-html/gibdd-html.html">
 
 <polymer-element name="gibdd-rules" attributes="wide rules theme" vertical layout>
     <template>
@@ -170,7 +170,7 @@
 
                                 <div flex vertical layout>
 
-                                    <div><b>{{rule.number}}</b>&nbsp;<gibdd-rule rule="{{rule.text}}"></gibdd-rule></div>
+                                    <div><b>{{rule.number}}</b>&nbsp;<gibdd-html content="{{rule.text}}"></gibdd-html></div>
 
                                 </div>
 

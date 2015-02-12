@@ -1,13 +1,13 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<polymer-element name="gibdd-rule" attributes="rule">
+<polymer-element name="gibdd-html" attributes="content">
   <script>
     (function () {
 
       Polymer({
         // define element prototype here
           ruleChanged: function() {
-              this.innerHTML = this.rule;
+              this.innerHTML = this.content;
           }
       });
 

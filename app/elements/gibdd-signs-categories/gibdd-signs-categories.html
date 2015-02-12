@@ -1,11 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/core-selector/core-selector.html">
-<link rel="import" href="../../bower_components/core-icon/core-icon.html">
 <link rel="import" href="../../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../gibdd-html/gibdd-html.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
-<polymer-element name="gibdd-signs" attributes="wide signs category" vertical layout>
+<polymer-element name="gibdd-signs-categories" attributes="wide signs category" vertical layout>
   <template>
     <style>
       .card {
@@ -120,28 +120,7 @@
       .list {
         background-color: #ffffff;
       }
-      .signs-item {
-        border-bottom: 1px solid #ddd;
-        padding: 16px;
-        line-height: 22px;
-      }
 
-      .signs-item:last-of-type {
-        border: 0;
-      }
-
-      .wide .signs-item {
-        padding: 24px;
-      }
-
-      .signs-item > core-icon {
-        padding-right: 32px;
-        color: #00c853;
-      }
-
-      .signs-item > core-icon.fail {
-        color: #f50057;
-      }
       .bg {
         background-color: #eee;
       }
@@ -149,53 +128,70 @@
         z-index: -1;
       }
     </style>
-    <div class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
-      <div flex vertical layout slide-up?="{{parentElement.selected === 'signs'}}"
-           cross-fade="{{!wide && parentElement.selected !== 'signs'}}"
-           class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
+    <div class="bg" fit dummy hero-id="punch" hero?="{{parentElement.lastSelected !== 'signs'}}"></div>
 
-        <core-toolbar hero-id="punch-bottom" hero?="{{parentElement.selected !== 'rules'}}">
+    <div class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
+      <div flex vertical layout slide-up?="{{parentElement.selected === 'categories'}}"
+           cross-fade="{{!wide && parentElement.selected !== 'categories'}}"
+           class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
+        <core-toolbar hero-id="punch-bottom" hero?="{{parentElement.selected !== 'categories'}}">
           <div class="header" horizontal center layout self-end>
-            <div class="title">{{category}}</div>
+            <div class="title">Категории</div>
           </div>
         </core-toolbar>
 
         <div class="{{ {scroll: !wide} | tokenList }}" layout flex hero-id="signs-content"
-             hero?="{{parentElement.selected !== 'signs'}}">
-          <div class="list theme-list" layout relative>
-
-            <template repeat="{{sign, index in signs}}">
-
-              <div class="signs-item" horizontal layout>
-
-                <div flex vertical layout>
-
-                  <div><b>{{sign.number}}</b>&nbsp;{{sign.name}}</div>
-                  <div><gibdd-html content="{{sign.text}}"></gibdd-html></div>
-
-                </div>
-
-              </div>
-
+             hero?="{{parentElement.selected !== 'categories'}}">
+          <div class="list category-list" layout relative>
+            <template repeat="{{category in categories}}">
+              <paper-item on-click="{{selectCategory}}">{{category.name}}</paper-item>
             </template>
-
           </div>
-
         </div>
-
       </div>
       <paper-icon-button hidden?="{{tvmode}}" class="main-button {{ {wide: wide} | tokenList }}" icon="arrow-back"
-                         on-tap="{{backAction}}" cross-fade-delayed?="{{!disabled}}"
+                         on-tap="{{mainAction}}" cross-fade-delayed?="{{!disabled}}"
                          hero?="{{!disabled}}"></paper-icon-button>
     </div>
+    <core-ajax
+      auto
+      url="/api/signcategories"
+      handleAs="json"
+      response="{{categories}}"></core-ajax>
+    <core-ajax
+      id="signsreq"
+      url="/api/signs/"
+      handleAs="json"
+      on-core-response="{{signsLoaded}}"></core-ajax>
   </template>
   <script>
     (function () {
 
       Polymer({
         // define element prototype here
-        backAction: function() {
-          this.fire('back');
+        publish: {
+          disabled: false,
+          columns: 1,
+          tvmode: false,
+          duration: -1,
+          wide: false
+        },
+
+        mainAction: function() {
+          this.disabled = true;
+          this.fire('main');
+        },
+        selectCategory: function(e, detail, sender) {
+          this.theme = e.target.templateInstance.model.category.name;
+          this.sendRequest(JSON.stringify({category:e.target.templateInstance.model.category.number}));
+        },
+        sendRequest: function(parameters) {
+          this.$.signsreq.params = parameters;
+          this.$.signsreq.go();
+        },
+        signsLoaded: function(event, result) {
+          this.signs = result.response;
+          this.fire('loaded');
         }
       });
 

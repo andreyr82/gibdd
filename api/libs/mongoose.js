@@ -50,14 +50,30 @@ var Rule = new Schema({
     image: { type: String }
 });
 
+var Signcategory = new Schema({
+    number: { type: Number, required: true },
+    name: { type: String, required: true }
+});
+
+var Sign = new Schema({
+    number: { type: String, required: true },
+    category: { type: Number, required: true },
+    text: { type: String, required: true },
+    images: { type: [String] }
+});
+
 var QuestionModel = mongoose.model('Question', Question);
 var TicketModel = mongoose.model('Ticket', Ticket);
 var ThemeModel = mongoose.model('Theme', Theme);
 var RulethemeModel = mongoose.model('Ruletheme', Ruletheme);
 var RuleModel = mongoose.model('Rule', Rule);
+var SigncategoryModel = mongoose.model('Signcategory', Signcategory);
+var SignModel = mongoose.model('Sign', Sign);
 
 module.exports.QuestionModel = QuestionModel;
 module.exports.TicketModel = TicketModel;
 module.exports.ThemeModel = ThemeModel;
 module.exports.RulethemeModel = RulethemeModel;
 module.exports.RuleModel = RuleModel;
+module.exports.SigncategoryModel = SigncategoryModel;
+module.exports.SignModel = SignModel;

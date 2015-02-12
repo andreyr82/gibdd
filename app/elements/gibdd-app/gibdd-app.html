@@ -13,6 +13,7 @@
 <link rel="import" href="../gibdd-penalty/gibdd-penalty.html">
 <link rel="import" href="../gibdd-menu/gibdd-menu.html">
 <link rel="import" href="../gibdd-rules-themes/gibdd-rules-themes.html">
+<link rel="import" href="../gibdd-signs-categories/gibdd-signs-categories.html">
 
 <polymer-element name="gibdd-app" attributes="" vertical layout>
     <template>
@@ -27,8 +28,9 @@
             <gibdd-ticket id="ticket" name="ticket" questions="{{questions}}" allScores="{{allScores}}" wide="{{wide}}"></gibdd-ticket>
             <gibdd-rules-themes id="themes" name="themes" rules="{{rules}}" theme="{{theme}}" wide="{{wide}}" on-loaded="{{showRules}}"></gibdd-rules-themes>
             <gibdd-rules id="rules" name="rules" rules="{{rules}}" theme="{{theme}}" wide="{{wide}}" on-back="{{showThemes}}"></gibdd-rules>
-            <gibdd-signs id="signs" name="signs" wide="{{wide}}"></gibdd-signs>
-            <gibdd-penalty id="penalty" name="penalty" wide="{{wide}}"></gibdd-penalty>
+            <gibdd-signs-categories id="categories" name="categories" signs="{{signs}}" category="{{category}}" wide="{{wide}}" on-loaded="{{showSigns}}"></gibdd-signs-categories>
+            <gibdd-signs id="signs" name="signs" signs="{{signs}}" wide="{{wide}}"></gibdd-signs>
+            <gibdd-penalty id="penalty" name="penalty" category="{{category}}" wide="{{wide}}" on-back="{{showCategories}}"></gibdd-penalty>
         </core-animated-pages>
 
         <core-media-query query="min-width: {{responsiveWidth}}" queryMatches="{{wide}}"></core-media-query>
@@ -70,6 +72,10 @@
 
                 showThemes: function(e) {
                     this.selected = 'themes';
+                },
+
+                showCategories: function() {
+                    this.selected = 'categories';
                 }
             });
 

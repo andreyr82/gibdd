@@ -14,6 +14,8 @@ var TicketModel     = require('./libs/mongoose').TicketModel;
 var ThemeModel      = require('./libs/mongoose').ThemeModel;
 var RulethemeModel  = require('./libs/mongoose').RulethemeModel;
 var RuleModel       = require('./libs/mongoose').RuleModel;
+var SigncategoryModel  = require('./libs/mongoose').SigncategoryModel;
+var SignModel       = require('./libs/mongoose').SignModel;
 var app = express();
 
 app.use(logger('dev')); // выводим все запросы со статусами в консоль
@@ -25,6 +27,33 @@ app.use(express.static(path.join(__dirname, "../app"))); // запуск ста�
 
 app.get('/api', function (req, res) {
     res.send('API is running');
+});
+
+app.get('/api/signcategories', function(req, res) {
+  return SigncategoryModel.find({}, null, {sort:{'number':1}},function (err, categories) {
+    if (!err) {
+      return res.send(categories);
+    } else {
+      res.statusCode = 500;
+      log.error('Internal error(%d): %s',res.statusCode,err.message);
+      return res.send({ error: 'Server error' });
+    }
+  });
+});
+
+app.get('/api/signs', function(req, res) {
+  var query = {};
+  if(req.query.category)
+    query.category = req.query.category;
+  return SignModel.find(query, null, {sort:{'number':1}}, function (err, signs) {
+    if (!err) {
+      return res.send(signs);
+    } else {
+      res.statusCode = 500;
+      log.error('Internal error(%d): %s',res.statusCode,err.message);
+      return res.send({ error: 'Server error' });
+    }
+  });
 });
 
 app.get('/api/rulethemes', function(req, res) {

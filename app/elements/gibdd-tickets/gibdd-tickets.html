@@ -160,7 +160,11 @@
 
                         <section class="list theme-list" layout relative>
                             <template repeat="{{theme in themes}}">
-                                <paper-item on-click="{{selectTheme}}">{{theme.names}}</paper-item>
+                                <paper-item on-click="{{selectTheme}}">
+                                    <template repeat="{{name in theme.names}}">
+                                        {{name}}<br/>
+                                    </template>
+                                </paper-item>
                             </template>
                         </section>
 

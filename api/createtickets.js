@@ -1,16 +1,17 @@
 /**
  * Created by Андрей on 14.01.2015.
  */
-var RuleModel    = require('./libs/mongoose').RuleModel;
-var rules;
+var SignModel    = require('./libs/mongoose').SignModel;
+var signs;
 
-    rules = require('../rules/rules.json');
-    rules.forEach(function(t) {
-        var rule = new RuleModel({
+    signs = require('../signs/signs.json');
+    signs.forEach(function(t) {
+        var sign = new SignModel({
             number: t.number,
-            themeNumber: t.themeNumber,
+            name: t.name,
+            category: t.category,
             text: t.text,
-            image: t.image
+            images: t.images
         });
-        rule.save();
+        sign.save();
     });

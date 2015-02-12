@@ -182,7 +182,7 @@
           this.fire('main');
         },
         selectCategory: function(e, detail, sender) {
-          this.theme = e.target.templateInstance.model.category.name;
+          this.category = e.target.templateInstance.model.category.name;
           this.sendRequest(JSON.stringify({category:e.target.templateInstance.model.category.number}));
         },
         sendRequest: function(parameters) {

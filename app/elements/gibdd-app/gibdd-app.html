@@ -29,8 +29,8 @@
             <gibdd-rules-themes id="themes" name="themes" rules="{{rules}}" theme="{{theme}}" wide="{{wide}}" on-loaded="{{showRules}}"></gibdd-rules-themes>
             <gibdd-rules id="rules" name="rules" rules="{{rules}}" theme="{{theme}}" wide="{{wide}}" on-back="{{showThemes}}"></gibdd-rules>
             <gibdd-signs-categories id="categories" name="categories" signs="{{signs}}" category="{{category}}" wide="{{wide}}" on-loaded="{{showSigns}}"></gibdd-signs-categories>
-            <gibdd-signs id="signs" name="signs" signs="{{signs}}" wide="{{wide}}"></gibdd-signs>
-            <gibdd-penalty id="penalty" name="penalty" category="{{category}}" wide="{{wide}}" on-back="{{showCategories}}"></gibdd-penalty>
+            <gibdd-signs id="signs" name="signs" signs="{{signs}}" category="{{category}}" wide="{{wide}}" on-back="{{showCategories}}"></gibdd-signs>
+            <gibdd-penalty id="penalty" name="penalty" wide="{{wide}}"></gibdd-penalty>
         </core-animated-pages>
 
         <core-media-query query="min-width: {{responsiveWidth}}" queryMatches="{{wide}}"></core-media-query>
@@ -76,6 +76,10 @@
 
                 showCategories: function() {
                     this.selected = 'categories';
+                },
+
+                showSigns: function() {
+                    this.selected = 'signs'
                 }
             });
 

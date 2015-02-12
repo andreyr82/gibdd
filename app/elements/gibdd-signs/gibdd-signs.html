@@ -154,7 +154,7 @@
            cross-fade="{{!wide && parentElement.selected !== 'signs'}}"
            class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
 
-        <core-toolbar hero-id="punch-bottom" hero?="{{parentElement.selected !== 'rules'}}">
+        <core-toolbar hero-id="punch-bottom" hero?="{{parentElement.selected !== 'signs'}}">
           <div class="header" horizontal center layout self-end>
             <div class="title">{{category}}</div>
           </div>
@@ -162,7 +162,7 @@
 
         <div class="{{ {scroll: !wide} | tokenList }}" layout flex hero-id="signs-content"
              hero?="{{parentElement.selected !== 'signs'}}">
-          <div class="list theme-list" layout relative>
+          <div class="list signs-list" layout relative>
 
             <template repeat="{{sign, index in signs}}">
 
@@ -171,7 +171,7 @@
                 <div flex vertical layout>
 
                   <div><b>{{sign.number}}</b>&nbsp;{{sign.name}}</div>
-                  <template if="{{sign.images.length}}" repeat="{{image in images}}">
+                  <template repeat="{{image in sign.images}}">
                     <div class="image"><img src="/images{{image}}"></div>
                   </template>
                   <div><gibdd-html content="{{sign.text}}"></gibdd-html></div>

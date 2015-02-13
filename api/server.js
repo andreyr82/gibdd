@@ -45,7 +45,7 @@ app.get('/api/signs', function(req, res) {
   var query = {};
   if(req.query.category)
     query.category = req.query.category;
-  return SignModel.find(query, null, {sort:{'number':1}}, function (err, signs) {
+  return SignModel.find(query, null, {sort:{'_id':1}}, function (err, signs) {
     if (!err) {
       return res.send(signs);
     } else {
@@ -72,7 +72,7 @@ app.get('/api/rules', function(req, res) {
     var query = {};
     if(req.query.theme)
         query.themeNumber = req.query.theme;
-    return RuleModel.find(query, null, {sort:{'number':1}}, function (err, rules) {
+    return RuleModel.find(query, null, {sort:{'_id':1}}, function (err, rules) {
         if (!err) {
             return res.send(rules);
         } else {

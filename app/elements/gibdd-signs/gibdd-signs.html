@@ -39,7 +39,7 @@
       }
       .title {
         padding-left: 56px;
-        font-size: 24px;
+        font-size: 18px;
       }
 
       .wide .title {
@@ -47,7 +47,7 @@
       }
 
       .tvmode .title {
-        font-size: 24px;
+        font-size: 18px;
       }
       .scroll {
         overflow-y: auto;
@@ -149,7 +149,7 @@
         z-index: -1;
       }
     </style>
-    <div class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
+    <div id="signsPanel" class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
       <div flex vertical layout slide-up?="{{parentElement.selected === 'signs'}}"
            cross-fade="{{!wide && parentElement.selected !== 'signs'}}"
            class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
@@ -160,7 +160,7 @@
           </div>
         </core-toolbar>
 
-        <div class="{{ {scroll: !wide} | tokenList }}" layout flex hero-id="signs-content"
+        <div id="signsContent" class="{{ {scroll: !wide} | tokenList }}" layout flex hero-id="signs-content"
              hero?="{{parentElement.selected !== 'signs'}}">
           <div class="list signs-list" layout relative>
 
@@ -197,7 +197,12 @@
 
       Polymer({
         // define element prototype here
+        resetScrollTop: function () {
+          this.$.signsPanel.scrollTop = 0;
+          this.$.signsContent.scrollTop = 0;
+        },
         backAction: function() {
+          this.resetScrollTop();
           this.fire('back');
         }
       });

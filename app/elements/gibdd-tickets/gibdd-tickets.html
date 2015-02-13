@@ -37,7 +37,7 @@
             }
             .title {
                 padding-left: 56px;
-                font-size: 16px;
+                font-size: 18px;
             }
 
             .wide .title {
@@ -45,7 +45,7 @@
             }
 
             .tvmode .title {
-                font-size: 24px;
+                font-size: 18px;
             }
             .scroll {
                 overflow-y: auto;
@@ -139,7 +139,8 @@
         <div class="bg" fit dummy hero-id="punch" hero></div>
 
         <div class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
-            <div flex vertical layout slide-up-offscreen?="{{parentElement.selected === 'tickets'}}"
+            <div flex vertical layout slide-up?="{{parentElement.selected === 'tickets'}}"
+                 hero?="{{parentElement.lastSelected == 'ticket'}}"
                  cross-fade="{{!wide && parentElement.selected !== 'tickets'}}"
                  class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
                 <core-toolbar hero-id="punch-bottom" hero?="{{parentElement.selected !== 'tickets'}}">

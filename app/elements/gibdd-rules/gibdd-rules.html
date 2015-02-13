@@ -21,6 +21,14 @@
                 width: 100%;
                 height: 100%;
             }
+            .card > core-toolbar {
+                min-height: 64px;
+                height: auto;
+            }
+            .card > core-toolbar::shadow #topBar {
+                min-height: 64px;
+                height: auto;
+            }
             .main-button {
                 position: absolute;
                 top: 12px;
@@ -34,12 +42,12 @@
                 color: #626262;
             }
             .header {
-                height: 48px;
+                min-height: 48px;
                 width: 100%;
             }
             .title {
                 padding-left: 56px;
-                font-size: 24px;
+                font-size: 18px;
             }
 
             .wide .title {
@@ -47,7 +55,7 @@
             }
 
             .tvmode .title {
-                font-size: 24px;
+                font-size: 18px;
             }
             .scroll {
                 overflow-y: auto;
@@ -149,7 +157,7 @@
                 z-index: -1;
             }
         </style>
-        <div class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
+        <div id="rulesPanel" class="main {{ {scroll: wide} | tokenList }}" flex center layout vertical hero-p>
             <div flex vertical layout slide-up?="{{parentElement.selected === 'rules'}}"
                  cross-fade="{{!wide && parentElement.selected !== 'rules'}}"
                  class="card {{ {wide: wide, 'multi-column': columns>1, tvmode: tvmode} | tokenList }}" relative>
@@ -160,7 +168,7 @@
                     </div>
                 </core-toolbar>
 
-                <div class="{{ {scroll: !wide} | tokenList }}" layout flex hero-id="rules-content"
+                <div id="rulesContent" class="{{ {scroll: !wide} | tokenList }}" layout flex hero-id="rules-content"
                      hero?="{{parentElement.selected !== 'rules'}}">
                     <div class="list theme-list" layout relative>
 
@@ -193,7 +201,13 @@
 
             Polymer({
                 // define element prototype here
+                resetScrollTop: function () {
+                    this.$.rulesPanel.scrollTop = 0;
+                    this.$.rulesContent.scrollTop = 0;
+                },
+
                 backAction: function() {
+                    this.resetScrollTop();
                     this.fire('back');
                 }
             });

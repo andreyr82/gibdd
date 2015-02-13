@@ -75,7 +75,8 @@
                 },
 
                 eventDelegates: {
-                    'main': 'reset'
+                    'main': 'reset',
+                    'back': 'reset'
                 },
 
                 reset: function() {
@@ -111,11 +112,11 @@
                 },
 
                 mainAction: function () {
-//                    if (this.selected !== 'quizzes') {
-//                        this.selected = 'empty';
-//                    } else {
+                    if (this.selected == 'quizzes' || this.selected == 'comment') {
+                        this.fire('back');
+                    } else {
                         this.fire('main');
-//                    }
+                    }
                 },
 
                 quizDone: function (e, detail) {

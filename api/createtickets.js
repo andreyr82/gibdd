@@ -1,17 +1,17 @@
 /**
  * Created by Андрей on 14.01.2015.
  */
-var SignModel    = require('./libs/mongoose').SignModel;
-var signs;
+var MarkingModel    = require('./libs/mongoose').MarkingModel;
+var markings;
 
-    signs = require('../signs/signs.json');
-    signs.forEach(function(t) {
-        var sign = new SignModel({
+    markings = require('../markings/markings.json');
+    markings.forEach(function(t) {
+        var marking = new MarkingModel({
             number: t.number,
             name: t.name,
-            category: t.category,
+            type: t.type,
             text: t.text,
             images: t.images
         });
-        sign.save();
+        marking.save();
     });

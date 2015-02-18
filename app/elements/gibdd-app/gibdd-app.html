@@ -14,6 +14,8 @@
 <link rel="import" href="../gibdd-menu/gibdd-menu.html">
 <link rel="import" href="../gibdd-rules-themes/gibdd-rules-themes.html">
 <link rel="import" href="../gibdd-signs-categories/gibdd-signs-categories.html">
+<link rel="import" href="../gibdd-markings-types/gibdd-markings-types.html">
+<link rel="import" href="../gibdd-markings/gibdd-markings.html">
 
 <polymer-element name="gibdd-app" attributes="" vertical layout>
     <template>
@@ -30,6 +32,8 @@
             <gibdd-rules id="rules" name="rules" rules="{{rules}}" theme="{{theme}}" wide="{{wide}}" on-back="{{showThemes}}"></gibdd-rules>
             <gibdd-signs-categories id="categories" name="categories" signs="{{signs}}" category="{{category}}" wide="{{wide}}" on-loaded="{{showSigns}}"></gibdd-signs-categories>
             <gibdd-signs id="signs" name="signs" signs="{{signs}}" category="{{category}}" wide="{{wide}}" on-back="{{showCategories}}"></gibdd-signs>
+            <gibdd-markings-types id="types" name="types" markings="{{markings}}" type="{{type}}" wide="{{wide}}" on-loaded="{{showMarkings}}"></gibdd-markings-types>
+            <gibdd-markings id="markings" name="markings" markings="{{markings}}" type="{{type}}" wide="{{wide}}" on-back="{{showTypes}}"></gibdd-markings>
             <gibdd-penalty id="penalty" name="penalty" wide="{{wide}}"></gibdd-penalty>
         </core-animated-pages>
 
@@ -84,6 +88,14 @@
 
                 showTickets: function() {
                     this.selected = 'tickets';
+                },
+
+                showMarkings: function() {
+                    this.selected = 'markings';
+                },
+
+                showTypes: function() {
+                    this.selected = 'types'
                 }
             });
 

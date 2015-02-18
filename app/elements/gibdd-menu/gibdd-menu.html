@@ -85,8 +85,9 @@
                     </div>
                 </div>
 
-                <div class="menu-item marking" data-name="marking" vertical layout>
-                    <div class="tile theme-bg-a" dummy fit></div>
+                <div class="menu-item types" data-name="types" vertical layout needZ?="{{item === 'types'}}">
+                    <div class="tile theme-bg-a" dummy fit hero-id="{{item === 'types' ? 'punch' : ''}}"
+                         hero?="{{item === 'types'}}"></div>
                     <div class="tile" flex vertical layout>
                         <div flex relative>
                             <!-- sizing wrapper -->
@@ -97,9 +98,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="cat-name" horizontal center layout>
-                            <div flex>Разметка</div>
-                            <core-icon class="menu-icon" icon="arrow-forward"></core-icon>
+                        <div class="cat-name" horizontal center layout
+                             hero-id="{{item === 'types' ? 'punch-bottom' : ''}}" hero?="{{item === 'types'}}">
+                            <div flex>
+                                <span cross-fade-delayed?="{{item === 'types' && parentElement.lastSelected === 'types'}}">Разметка</span>
+                            </div>
+                            <core-icon class="menu-icon" icon="arrow-forward"
+                                       cross-fade-delayed?="{{item === 'types' && parentElement.lastSelected === 'types'}}"></core-icon>
                         </div>
                     </div>
                 </div>

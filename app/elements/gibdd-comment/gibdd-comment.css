@@ -77,6 +77,10 @@
     color: #f50057;
 }
 
+.comment-item .img-znak-comment {
+  max-height:30px;
+}
+
 .answer {
     font-weight: bold;
 }
